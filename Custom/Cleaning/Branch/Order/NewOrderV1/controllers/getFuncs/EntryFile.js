@@ -4,6 +4,7 @@ import {
   GetRowSettlementFunc as GetRowSettlementFuncRepo,
   GetInsertOrderFunc as GetInsertOrderFuncRepo,
   GetTodayCustomerFilterFunc as GetTodayCustomerFilterFuncRepo,
+	GetYesterdayCustomerFilterFunc as GetYesterdayCustomerFilterFuncRepo
 } from "../../repos/getFuncs/EntryFile.js";
 
 let GetFunc = (req, res) => {
@@ -79,10 +80,26 @@ let GetTodayCustomerFilterFunc = (req, res) => {
   res.status(200).send(JSON.stringify(LocalFromRepo.JsonData));
 };
 
+let GetYesterdayCustomerFilterFunc = async (req, res) => {
+  let LocalParams = req.params;
+  let LocalBranch = LocalParams.inBranch;
+  let LocalMobile = LocalParams.inMobile;
+	let LocalFromRepo = await GetYesterdayCustomerFilterFuncRepo({inBranch: LocalBranch,
+    inMobile: LocalMobile,});
+
+	if (LocalFromRepo === false) {
+		res.status(500).send(LocalFromRepo);
+		return;
+	};
+
+	res.status(200).send(JSON.stringify(LocalFromRepo));
+};
+
 export {
   GetFunc,
   GetOrderShowFunc,
   GetRowSettlementFunc,
   GetInsertOrderFunc,
   GetTodayCustomerFilterFunc,
+	GetYesterdayCustomerFilterFunc
 };
