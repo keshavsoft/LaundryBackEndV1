@@ -5,6 +5,7 @@ import { StartFunc as InsertOrderWithChecking } from "../../kLowDb/EntryScan/Wit
 import { StartFunc as StartFuncFromGetTodayCustomerFilter } from "../../kLowDb/ReadFile/TodayCustomerOrders.js";
 import { StartFunc as StartFuncFromGetYesterdayCustomerFilter } from '../../kLowDb/ReadFile/YesterdayCustomerFilter.js';
 import { StartFunc as StartFuncFromGetWeekCustomerFilter } from '../../kLowDb/ReadFile/WeekCustomerFilter.js';
+import { StartFunc as StartFuncFromGetAllCustomerFilter } from '../../kLowDb/ReadFile/AllCustomerFilter.js';
 
 let GetFunc = ({ inBranch }) => {
   let LocalFromLowDb = MaxRow({ inBranch });
@@ -50,6 +51,12 @@ let GetWeekCustomerFilterFunc = async ({ inBranch, inMobile }) => {
 	return await LocalFromLowDb;
 };
 
+let GetAllCustomerFilterFunc = async ({ inBranch, inMobile }) => {
+	let LocalFromLowDb = await StartFuncFromGetAllCustomerFilter({ inBranch, inMobile });
+
+	return await LocalFromLowDb;
+};
+
 export {
   GetFunc,
   GetOrderShowFunc,
@@ -57,5 +64,6 @@ export {
   GetInsertOrderFunc,
   GetTodayCustomerFilterFunc,
 	GetYesterdayCustomerFilterFunc,
-	GetWeekCustomerFilterFunc
+	GetWeekCustomerFilterFunc,
+	GetAllCustomerFilterFunc
 };
