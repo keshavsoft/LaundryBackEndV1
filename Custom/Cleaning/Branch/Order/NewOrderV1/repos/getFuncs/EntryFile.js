@@ -4,7 +4,8 @@ import {
   GetRowSettlementFunc as GetRowSettlementFuncDal,
   GetInsertOrderFunc as GetInsertOrderFuncDal,
   GetTodayCustomerFilterFunc as GetTodayCustomerFilterFuncDal,
-	GetYesterdayCustomerFilterFunc as GetYesterdayCustomerFilterFuncDal
+	GetYesterdayCustomerFilterFunc as GetYesterdayCustomerFilterFuncDal,
+	GetWeekCustomerFilterFunc as GetWeekCustomerFilterFuncDal
 } from "../../dals/getFuncs/EntryFile.js";
 
 let GetFunc = ({ inBranch }) => {
@@ -34,11 +35,18 @@ let GetYesterdayCustomerFilterFunc = async ({ inBranch, inMobile }) => {
 	return LocalFromDal;
 };
 
+let GetWeekCustomerFilterFunc = async ({ inBranch, inMobile }) => {
+	let LocalFromDal = await GetWeekCustomerFilterFuncDal({ inBranch, inMobile });
+
+	return LocalFromDal;
+};
+
 export {
   GetFunc,
   GetOrderShowFunc,
   GetRowSettlementFunc,
   GetInsertOrderFunc,
   GetTodayCustomerFilterFunc,
-	GetYesterdayCustomerFilterFunc
+	GetYesterdayCustomerFilterFunc,
+	GetWeekCustomerFilterFunc
 };
