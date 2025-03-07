@@ -29,6 +29,6 @@ call npm run Payments
 call npm run QrCodes
 call npm run All-Dcs
 
-xcopy .\publicDir ..\CrudGenV4\public\Laundry\Branch /h /i /c /k /e /r /y
+xcopy .\publicDir ..\LaundryBackEndV1\public\Laundry\Branch /h /i /c /k /e /r /y
 
-cd ..\CrudGenV4
+cd ..\LaundryBackEndV1
