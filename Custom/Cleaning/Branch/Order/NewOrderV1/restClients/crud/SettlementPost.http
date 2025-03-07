@@ -1,0 +1,16 @@
+### Qr Raise
+POST  http://localhost:7318/Custom/Cleaning/Branch/Order/NewOrderV1/Settlement/173/BranOrdersLBC
+Content-Type: application/json
+
+{
+   "RoundOff": 0,
+        "CashAmount": 236,
+        "CardAmount": 0,
+        "UPIAmount": 0,
+        "DiscountPer": 0,
+        "GstData": {
+          "DiscountAmount": 0,
+          "CGST": 18,
+          "SGST": 18
+        }
+}
