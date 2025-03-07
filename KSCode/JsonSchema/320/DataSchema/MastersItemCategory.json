@@ -1,0 +1,7 @@
+{
+    "ItemCategory": {
+        "type": "STRING",
+        "unique": true,
+        "allowNull": false
+    }
+}

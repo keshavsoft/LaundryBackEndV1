@@ -1,0 +1,5 @@
+###Get for as is data
+GET  http://localhost:7318/Login/bin/Users/RowData/e741bacb-f4a3-46fc-8462-440c3384
+
+
+

@@ -1,0 +1,7 @@
+{
+    "ItemType": {
+        "type": "STRING",
+        "unique": true,
+        "allowNull": false
+    }
+}
