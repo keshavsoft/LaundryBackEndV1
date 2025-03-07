@@ -17,6 +17,6 @@ call npm run Accounts
 call npm run Dcs
 call npm run Orders
 
-xcopy .\publicDir ..\CrudGenV4\public\Laundry\Admin /h /i /c /k /e /r /y
+xcopy .\publicDir ..\LAUNDRYBACKENDV1\public\Laundry\Admin /h /i /c /k /e /r /y
 
-cd ..\CrudGenV4
+cd ..\LAUNDRYBACKENDV1

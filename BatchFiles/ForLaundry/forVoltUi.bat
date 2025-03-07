@@ -6,6 +6,6 @@ rmdir /s /q .\publicDir\*
 
 call gulp build:publicDir
 
-xcopy .\publicDir ..\CrudGenV4\public\Volt /h /i /c /k /e /r /y
+xcopy .\publicDir ..\LAUNDRYBACKENDV1\public\Volt /h /i /c /k /e /r /y
 
-cd ..\CrudGenV4
+cd ..\LAUNDRYBACKENDV1
