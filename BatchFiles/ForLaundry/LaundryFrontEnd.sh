@@ -26,8 +26,7 @@ npm run Branch-Dashboard-QrCodeWise-AsArray
 npm run Branch-Pos-Today-QrCodes
 npm run Admin-AdminAllDays-CommonConfig-QrCode-AsArray
 
-# Copy the publicDir to the target directory in CrudGenV4
-rsync -av --progress ./publicDir/ ../CrudGenV4/public/Laundry
+# Copy the publicDir to the target directory in LaundryBackEndV1rsync -av --progress ./publicDir/ ../CrudGenV4/public/Laundry
 
 # Navigate to the CrudGenV4 directory
-cd ../CrudGenV4
+cd ../LaundryBackEndV1

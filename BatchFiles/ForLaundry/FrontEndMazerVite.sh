@@ -13,8 +13,7 @@ npm run PressingVoucher
 npm run CompletionVoucher
 npm run CompletionQrCodes
 
-# Copy the publicDir to the target directory in CrudGenV4
-rsync -av --progress ./publicDir/ ../CrudGenV4/public/Laundry/Factory
+# Copy the publicDir to the target directory in LaundryBackEndV1rsync -av --progress ./publicDir/ ../CrudGenV4/public/Laundry/Factory
 
 # Navigate to the CrudGenV4 directory
-cd ../CrudGenV4
+cd ../LaundryBackEndV1

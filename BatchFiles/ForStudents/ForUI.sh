@@ -24,4 +24,4 @@ cd ../FrontEndForClients
 # Copy the Students directory
 cp -r ./publicDir/Students ../CrudGenV4/public/Students
 
-cd ../CrudGenV4
+cd ../LaundryBackEndV1

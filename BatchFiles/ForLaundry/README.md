@@ -1,5 +1,4 @@
-# CrudGenV4
-3. Clone the repository
+# LaundryBackEndV13. Clone the repository
    ```
    .\BatchFiles\ForLaundry\LaundryFrontEndForBranch.bat
    ```

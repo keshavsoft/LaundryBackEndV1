@@ -18,4 +18,4 @@ call npm run Students
 
 xcopy .\publicDir\Students ..\CrudGenV4\public\Students /h /i /c /k /e /r /y
 
-cd ..\CrudGenV4
+cd ..\LaundryBackEndV1
