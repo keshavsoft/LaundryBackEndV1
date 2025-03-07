@@ -5,7 +5,8 @@ import {
   GetInsertOrderFunc as GetInsertOrderFuncRepo,
   GetTodayCustomerFilterFunc as GetTodayCustomerFilterFuncRepo,
 	GetYesterdayCustomerFilterFunc as GetYesterdayCustomerFilterFuncRepo,
-	GetWeekCustomerFilterFunc as GetWeekCustomerFilterFuncRepo
+	GetWeekCustomerFilterFunc as GetWeekCustomerFilterFuncRepo,
+	GetAllCustomerFilterFunc as GetAllCustomerFilterFuncRepo
 } from "../../repos/getFuncs/EntryFile.js";
 
 let GetFunc = (req, res) => {
@@ -111,6 +112,21 @@ let GetWeekCustomerFilterFunc = async (req, res) => {
 	res.status(200).send(JSON.stringify(LocalFromRepo));
 };
 
+let GetAllCustomerFilterFunc = async (req, res) => {
+  let LocalParams = req.params;
+  let LocalBranch = LocalParams.inBranch;
+  let LocalMobile = LocalParams.inMobile;
+	let LocalFromRepo = await GetAllCustomerFilterFuncRepo({inBranch: LocalBranch,
+    inMobile: LocalMobile,});
+
+	if (LocalFromRepo === false) {
+		res.status(500).send(LocalFromRepo);
+		return;
+	};
+
+	res.status(200).send(JSON.stringify(LocalFromRepo));
+};
+
 export {
   GetFunc,
   GetOrderShowFunc,
@@ -118,5 +134,6 @@ export {
   GetInsertOrderFunc,
   GetTodayCustomerFilterFunc,
 	GetYesterdayCustomerFilterFunc,
-	GetWeekCustomerFilterFunc
+	GetWeekCustomerFilterFunc,
+	GetAllCustomerFilterFunc
 };
