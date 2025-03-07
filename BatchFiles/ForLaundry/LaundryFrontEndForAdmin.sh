@@ -16,6 +16,6 @@ npm run Accounts
 npm run Dcs
 npm run Orders
 
-cp -r  ./publicDir/* ../CrudGenV4/public/Laundry/Admin
+cp -r  ./publicDir/* ../LaundryBackEndV1/public/Laundry/Admin
 
-cd ../CrudGenV4
+cd ../LaundryBackEndV1
