@@ -1,9 +1,0 @@
-  {
-    "Mobile": {
-      "type": "STRING",
-      "isRequired": true
-    },
-    "Chat": {
-      "type": "STRING"
-    }
-  }
