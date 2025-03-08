@@ -1,4 +1,11 @@
+mkdir public/Laundry/Factory
+
 cd ../LaundryFrontEndForFactory
+git pull
+
+if [ ! -d "node_modules" ]; then
+  npm i
+fi
 
 npm run FromBranchVoucher
 npm run FromBranchQrCodes
