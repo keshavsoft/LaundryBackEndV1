@@ -1,6 +1,7 @@
+mkdir public/Laundry/Branch
+
 cd ../LaundryFrontEndForBranch
 git pull
-
 
 npm run Today-Orders
 npm run Today-QrCodes
