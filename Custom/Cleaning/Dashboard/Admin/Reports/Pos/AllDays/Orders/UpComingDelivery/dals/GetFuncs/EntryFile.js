@@ -1,14 +1,9 @@
-import { StartFunc as UpCommingDelivery } from '../../kLowDb/ReadFileList/ToadyOrdersReports.js';
-import { StartFunc as OrderItems } from '../../kLowDb/ReadFileList/OrderItems.js';
+import { StartFunc as UpComingOrders } from '../../kLowDb/ReadFileList/UpComingOrders.js';
 
 let GetFuncs = ({ inBranch, fromDate, toDate  }) => {
-    return UpCommingDelivery({ inBranch, fromDate, toDate  });
-};
-
-let GetItemsFuncs = ({ inBranch }) => {
-    return OrderItems({ inBranch });
+    return UpComingOrders({ inBranch, fromDate, toDate  });
 };
 
 export {
-    GetFuncs, GetItemsFuncs
+    GetFuncs
 };
