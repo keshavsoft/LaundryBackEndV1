@@ -4,9 +4,9 @@ import {
   GetRowSettlementFunc as GetRowSettlementFuncRepo,
   GetInsertOrderFunc as GetInsertOrderFuncRepo,
   GetTodayCustomerFilterFunc as GetTodayCustomerFilterFuncRepo,
-	GetYesterdayCustomerFilterFunc as GetYesterdayCustomerFilterFuncRepo,
-	GetWeekCustomerFilterFunc as GetWeekCustomerFilterFuncRepo,
-	GetAllCustomerFilterFunc as GetAllCustomerFilterFuncRepo
+  GetYesterdayCustomerFilterFunc as GetYesterdayCustomerFilterFuncRepo,
+  GetWeekCustomerFilterFunc as GetWeekCustomerFilterFuncRepo,
+  GetAllCustomerFilterFunc as GetAllCustomerFilterFuncRepo
 } from "../../repos/getFuncs/EntryFile.js";
 
 let GetFunc = (req, res) => {
@@ -86,45 +86,51 @@ let GetYesterdayCustomerFilterFunc = async (req, res) => {
   let LocalParams = req.params;
   let LocalBranch = LocalParams.inBranch;
   let LocalMobile = LocalParams.inMobile;
-	let LocalFromRepo = await GetYesterdayCustomerFilterFuncRepo({inBranch: LocalBranch,
-    inMobile: LocalMobile,});
+  let LocalFromRepo = await GetYesterdayCustomerFilterFuncRepo({
+    inBranch: LocalBranch,
+    inMobile: LocalMobile,
+  });
 
-	if (LocalFromRepo === false) {
-		res.status(500).send(LocalFromRepo);
-		return;
-	};
+  if (LocalFromRepo.KTF === false) {
+    res.status(500).send(LocalFromRepo);
+    return;
+  };
 
-	res.status(200).send(JSON.stringify(LocalFromRepo));
+  res.status(200).send(JSON.stringify(LocalFromRepo.JsonData));
 };
 
 let GetWeekCustomerFilterFunc = async (req, res) => {
   let LocalParams = req.params;
   let LocalBranch = LocalParams.inBranch;
   let LocalMobile = LocalParams.inMobile;
-	let LocalFromRepo = await GetWeekCustomerFilterFuncRepo({inBranch: LocalBranch,
-    inMobile: LocalMobile,});
+  let LocalFromRepo = await GetWeekCustomerFilterFuncRepo({
+    inBranch: LocalBranch,
+    inMobile: LocalMobile,
+  });
 
-	if (LocalFromRepo === false) {
-		res.status(500).send(LocalFromRepo);
-		return;
-	};
+  if (LocalFromRepo.KTF === false) {
+    res.status(500).send(LocalFromRepo);
+    return;
+  };
 
-	res.status(200).send(JSON.stringify(LocalFromRepo));
+  res.status(200).send(JSON.stringify(LocalFromRepo.JsonData));
 };
 
 let GetAllCustomerFilterFunc = async (req, res) => {
   let LocalParams = req.params;
   let LocalBranch = LocalParams.inBranch;
   let LocalMobile = LocalParams.inMobile;
-	let LocalFromRepo = await GetAllCustomerFilterFuncRepo({inBranch: LocalBranch,
-    inMobile: LocalMobile,});
+  let LocalFromRepo = await GetAllCustomerFilterFuncRepo({
+    inBranch: LocalBranch,
+    inMobile: LocalMobile,
+  });
 
-	if (LocalFromRepo === false) {
-		res.status(500).send(LocalFromRepo);
-		return;
-	};
+  if (LocalFromRepo.KTF === false) {
+    res.status(500).send(LocalFromRepo);
+    return;
+  };
 
-	res.status(200).send(JSON.stringify(LocalFromRepo));
+  res.status(200).send(JSON.stringify(LocalFromRepo.JsonData));
 };
 
 export {
@@ -133,7 +139,7 @@ export {
   GetRowSettlementFunc,
   GetInsertOrderFunc,
   GetTodayCustomerFilterFunc,
-	GetYesterdayCustomerFilterFunc,
-	GetWeekCustomerFilterFunc,
-	GetAllCustomerFilterFunc
+  GetYesterdayCustomerFilterFunc,
+  GetWeekCustomerFilterFunc,
+  GetAllCustomerFilterFunc
 };
