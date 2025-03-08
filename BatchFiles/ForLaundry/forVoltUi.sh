@@ -3,6 +3,6 @@ git pull
 
 gulp build:publicDir
 
-cp -r  ./publicDir/* ../LaundryBackEndV1/public
+cp -r  ./publicDir/* ../LaundryBackEndV1/public/Volt
 
 cd ../LaundryBackEndV1
