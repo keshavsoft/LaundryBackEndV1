@@ -1,4 +1,5 @@
-import { StartFunc as returnAsArray } from "../../../../../../../../../binV4/PressingScan/Show/kLowDb/PullData/returnAsArray.js";
+// import { StartFunc as returnAsArray } from "../../../../../../../../../binV4/PressingScan/CommonPull/kLowDb/PullData/returnAsArray.js";
+import { StartFunc as returnAsArray } from "../../../../../../../../../binV4/PressingScan/CommonPull/kLowDb/PullData/returnAsArray.js";
 
 let StartFunc = () => {
     return returnAsArray();
