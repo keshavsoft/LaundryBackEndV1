@@ -153,7 +153,7 @@
   {
     "UserName": "VZM",
     "Password": "VZM",
-    "Branch": "VZM",
+    "Factory": "VZM",
     "BranchMobile": "4354",
     "UserMobile": "98789",
     "isAdminValidated": false,
@@ -175,7 +175,7 @@
   {
     "UserName": "Vizag",
     "Password": "Vizag",
-    "FactoryName": "Vizag",
+    "Factory": "Vizag",
     "BranchMobile": "5746",
     "UserMobile": "4667",
     "isAdminValidated": false,
@@ -204,5 +204,27 @@
     "isMailValidated": true,
     "DataPk": 318,
     "UuId": "7ecdfacd-6c41-48b0-8d60-39719a68fde9"
+  },
+  {
+    "UserName": "GD",
+    "Password": "GD",
+    "Factory": "GD",
+    "BranchMobile": "9900887766",
+    "UserMobile": "1122334455",
+    "isAdminValidated": false,
+    "isMailValidated": false,
+    "DataPk": 318,
+    "UuId": "91354291-5f27-407b-8932-4277b3fcbed6"
+  },
+  {
+    "UserName": "VMSN",
+    "Password": "VMSN",
+    "Branch": "VMSN",
+    "BranchMobile": "3232323231",
+    "UserMobile": "1212121212",
+    "isAdminValidated": false,
+    "isMailValidated": false,
+    "DataPk": 318,
+    "UuId": "58511e95-9788-487e-b4e9-b3b3edd4b59b"
   }
 ]
