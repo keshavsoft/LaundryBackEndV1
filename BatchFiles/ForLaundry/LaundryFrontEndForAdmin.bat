@@ -12,7 +12,7 @@ call npm run AdminAllDays-CommonConfig-QrCodeAtStage-BranchFilter
 call npm run AdminAllDays-CommonConfig-QrCodeAtStage-BranchWise
 call npm run Admin-Masters
 @REM call npm run Admin-Customers
-call npm run Admin-Detailed-Masters
+@REM call npm run Admin-Detailed-Masters
 call npm run Accounts
 call npm run Dcs
 call npm run Orders
