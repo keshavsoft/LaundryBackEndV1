@@ -11,7 +11,7 @@ call npm run AdminAllDays-CommonConfig-QrCodeAtStage-AsArray
 call npm run AdminAllDays-CommonConfig-QrCodeAtStage-BranchFilter
 call npm run AdminAllDays-CommonConfig-QrCodeAtStage-BranchWise
 call npm run Admin-Masters
-call npm run Admin-Customers
+@REM call npm run Admin-Customers
 call npm run Admin-Detailed-Masters
 call npm run Accounts
 call npm run Dcs
