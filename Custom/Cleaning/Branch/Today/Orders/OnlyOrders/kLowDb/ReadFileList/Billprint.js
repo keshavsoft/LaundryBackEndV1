@@ -16,12 +16,11 @@ let StartFunc = ({ inId, inBranch }) => {
         return new Date(e.OrderData.Currentdateandtime).toLocaleDateString('en-GB') === today && e.pk == LocalPk;
     });
 
-    let LocalFindUsers = UsersData.find(e => e.UuId == LocalFilterBranchData.UserUUId);
-    console.log(LocalFindUsers);
+    let LocalFindUsers = UsersData.find(e => e.UuId == LocalFilterBranchData?.UserUUId);
     
     return {
         ...LocalFilterBranchData,
-        BranchMobile: LocalFindUsers.BranchMobile
+        BranchMobile: LocalFindUsers?.BranchMobile
     }
 };
 
