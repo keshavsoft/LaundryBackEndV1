@@ -1,10 +1,14 @@
 import { StartFunc as MastersCustomers } from "../../CommonFuncs/MastersCustomers.js";
 import { StartFunc as modifiedBranch } from "./modifiedBranch.js";
+import os from 'os';
 
-const StartFunc = ({ inMobileNumber, inData, inBranch }) => {
+const StartFunc = ({ inMobileNumber, inData, inBranch, inUserUuId }) => {
     let LocalInData = inData;
     let LocalCustomerNumber = inMobileNumber;
     let LocalBranch = inBranch;
+    let LocalUserUuId = inUserUuId;
+    // let LocalOs = os.platform();
+    // console.log(LocalOs);
 
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
     let LocalDefalultKeys = modifiedBranch({ inBranch: LocalBranch });
@@ -26,8 +30,10 @@ const StartFunc = ({ inMobileNumber, inData, inBranch }) => {
     let MaxPk = (Math.max(...numberArray, 0) + 1);
 
     LocalReturnData.InsertData = {
-        ...LocalDefalultKeys, UuId: MaxPk, pk: MaxPk,
+        ...LocalDefalultKeys, UuId: uuidv4(), pk: MaxPk,
         CustomerData: { ...LocalMastersFindCustomers, CustomerMobile: LocalMastersFindCustomers?.Mobile },
+        UserUUId: LocalUserUuId,
+        IpAddress: getSystemIPAddress(),
         DateTime: Timestamp()
     };
 
@@ -39,6 +45,22 @@ const Timestamp = () => {
     let currentDate = new Date();
     let formattedDate = currentDate.toISOString();
     return formattedDate;
+};
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+};
+
+const getSystemIPAddress = () => {
+    const interfaces = os.networkInterfaces();
+    for (const iface of Object.values(interfaces).flat()) {
+        if (iface.family === 'IPv4' && !iface.internal) {
+            return iface.address;
+        }
+    }
+    return '0.0.0.0';
 };
 
 export { StartFunc };

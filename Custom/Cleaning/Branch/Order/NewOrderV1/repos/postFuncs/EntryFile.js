@@ -3,8 +3,8 @@ import {
     PostSettlementFunc as PostSettlementFuncDal
 } from '../../dals/postFuncs/EntryFile.js';
 
-let PostFunc = ({ inCustomerName, inMobileNumber, inBranch, inPostBody }) => {
-    return PostFuncDal({ inCustomerName, inMobileNumber, inBranch, inPostBody });
+let PostFunc = ({ inMobileNumber, inBranch,inUserUuId }) => {
+    return PostFuncDal({ inMobileNumber, inBranch, inUserUuId });
 };
 
 let PostSettlementFunc = ({ inPostBody, inId, inBranch }) => {

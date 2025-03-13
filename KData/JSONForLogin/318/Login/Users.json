@@ -226,5 +226,16 @@
     "isMailValidated": false,
     "DataPk": 318,
     "UuId": "58511e95-9788-487e-b4e9-b3b3edd4b59b"
+  },
+  {
+    "UserName": "Sharath",
+    "Password": "BABU",
+    "Branch": "LBC",
+    "BranchMobile": "2222222222",
+    "UserMobile": "1111111111",
+    "isAdminValidated": true,
+    "isMailValidated": false,
+    "DataPk": 318,
+    "UuId": "87c9f148-024a-4223-8be2-d00543f387db"
   }
 ]
