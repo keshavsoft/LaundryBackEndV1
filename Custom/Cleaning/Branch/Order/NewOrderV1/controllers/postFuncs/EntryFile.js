@@ -6,11 +6,12 @@ import {
 let PostFunc = (req, res) => {
     let LocalParams = req.params;
     let LocalBody = req.body;
-    let LocalCustomerName = LocalBody.inCustomerName;
+    // let LocalCustomerName = LocalBody.inCustomerName;
     let LocalMobileNumber = LocalBody.inMobileNumber;
     let LocalBranch = LocalParams.inBranch;
+    let LocalUserUuId = LocalBody.inUserUuId;
 
-    let LocalFromRepo = PostFuncRepo({ inPostBody: LocalBody, inCustomerName: LocalCustomerName, inMobileNumber: LocalMobileNumber, inBranch: LocalBranch });
+    let LocalFromRepo = PostFuncRepo({ inMobileNumber: LocalMobileNumber, inBranch: LocalBranch, inUserUuId: LocalUserUuId });
 
     if (LocalFromRepo.KTF === false) {
         res.status(500).send(LocalFromRepo.KReason);

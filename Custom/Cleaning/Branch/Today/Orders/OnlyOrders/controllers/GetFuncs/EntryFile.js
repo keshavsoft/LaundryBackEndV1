@@ -1,7 +1,8 @@
 import {
     GetFuncs as GetFuncsRepo,
     GetItemsFuncs as GetItemsFuncsRepo,
-    GetOrdersDeleteFunc as GetOrdersDeleteFuncRepo
+    GetOrdersDeleteFunc as GetOrdersDeleteFuncRepo,
+    GetBillPrintFunc as GetBillPrintFuncRepo
 } from '../../repos/GetFuncs/EntryFile.js';
 
 let GetFuncs = (req, res) => {
@@ -45,7 +46,22 @@ let GetOrdersDeleteFunc = async (req, res) => {
     res.status(200).send(JSON.stringify(LocalFromRepo));
 };
 
+
+let GetBillPrintFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let Localpk = LocalParams.inId;
+    let LocalBranch = LocalParams.inBranch
+    let LocalFromRepo = await GetBillPrintFuncRepo({ inId: Localpk,inBranch:LocalBranch });
+
+    if (LocalFromRepo === false) {
+        res.status(500).send(LocalFromRepo);
+        return;
+    };
+
+    res.status(200).send(JSON.stringify(LocalFromRepo));
+};
+
 export {
     GetFuncs, GetItemsFuncs,
-    GetOrdersDeleteFunc
+    GetOrdersDeleteFunc,GetBillPrintFunc
 };

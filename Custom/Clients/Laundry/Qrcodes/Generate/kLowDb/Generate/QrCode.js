@@ -5,7 +5,6 @@ import { StartFunc as StartFuncNoOrderCheck } from "./Check/NoOrderCheck.js";
 import { StartFunc as StartFuncSettlementCheck } from "./Check/SettlementCheck.js";
 
 let StartFunc = ({ inBranch, inId }) => {
-    console.log("kkkkkk:",inBranch, inId );
     
     let LocalTable = inBranch;
     let LocalBookingPk = inId;
@@ -42,7 +41,8 @@ let StartFunc = ({ inBranch, inId }) => {
     LocalGenerateReference.GenerateReference.ReferncePk = LocalBookingPk;
     let LocalBookingData = {};
     LocalBookingData.BookingData = {};
-    LocalBookingData.OrderNumber = LocalIdByOrderData.UuId
+    LocalBookingData.OrderNumber = LocalIdByOrderData.pk
+    LocalBookingData.OrderUuId = LocalIdByOrderData.UuId
     LocalBookingData.BookingData.CustomerData = LocalIdByOrderData.CustomerData;
     LocalBookingData.BookingData.OrderData = LocalIdByOrderData.OrderData;
     LocalBookingData.BookingData.AddOnData = LocalIdByOrderData.AddOnData;

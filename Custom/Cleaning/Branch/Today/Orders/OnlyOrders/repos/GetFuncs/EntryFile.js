@@ -1,7 +1,8 @@
 import {
     GetFuncs as GetFuncsDal,
     GetItemsFuncs as GetItemsFuncsDal,
-    GetOrdersDeleteFunc as GetOrdersDeleteFuncDal
+    GetOrdersDeleteFunc as GetOrdersDeleteFuncDal,
+    GetBillPrintFunc as GetBillPrintFuncDal
 } from '../../dals/GetFuncs/EntryFile.js';
 
 let GetFuncs = ({ inBranch }) => {
@@ -18,7 +19,12 @@ let GetOrdersDeleteFunc = async ({ inBranch }) => {
     return LocalFromDal;
 };
 
+let GetBillPrintFunc = async ({ inId,inBranch }) => {
+    let LocalFromDal = await GetBillPrintFuncDal({ inId,inBranch });
+
+    return LocalFromDal;
+};
 export {
     GetFuncs, GetItemsFuncs,
-    GetOrdersDeleteFunc
+    GetOrdersDeleteFunc,GetBillPrintFunc
 };
