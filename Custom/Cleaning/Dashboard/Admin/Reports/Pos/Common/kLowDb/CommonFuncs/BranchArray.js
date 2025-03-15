@@ -2,8 +2,11 @@ import { StartFunc as CommonAllOrders } from "./CommonAllOrders.js";
 
 const StartFunc = () => {
     const LocalAllOrders = CommonAllOrders();
+    let localBranchNames = LocalAllOrders.forEach(element => {
+        return element.replace("BranOrders", "")
+    });
 
-    return LocalAllOrders.map(name => name.replace("BranOrders",""))
+    return localBranchNames
 };
 
 export { StartFunc };
