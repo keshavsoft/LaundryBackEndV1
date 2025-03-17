@@ -2,11 +2,11 @@ import { StartFunc as MastersCustomers } from "../../CommonFuncs/MastersCustomer
 import { StartFunc as modifiedBranch } from "./modifiedBranch.js";
 import os from 'os';
 
-const StartFunc = ({ inMobileNumber, inData, inBranch, inUserUuId }) => {
+const StartFunc = ({ inMobileNumber, inData, inBranch, inUserName }) => {
     let LocalInData = inData;
     let LocalCustomerNumber = inMobileNumber;
     let LocalBranch = inBranch;
-    let LocalUserUuId = inUserUuId;
+    let LocalUserName = inUserName;
     // let LocalOs = os.platform();
     // console.log(LocalOs);
 
@@ -32,7 +32,7 @@ const StartFunc = ({ inMobileNumber, inData, inBranch, inUserUuId }) => {
     LocalReturnData.InsertData = {
         ...LocalDefalultKeys, UuId: uuidv4(), pk: MaxPk,
         CustomerData: { ...LocalMastersFindCustomers, CustomerMobile: LocalMastersFindCustomers?.Mobile },
-        UserUUId: LocalUserUuId,
+        UserName: LocalUserName,
         IpAddress: getSystemIPAddress(),
         DateTime: Timestamp()
     };

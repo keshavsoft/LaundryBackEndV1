@@ -9,9 +9,9 @@ let PostFunc = (req, res) => {
     // let LocalCustomerName = LocalBody.inCustomerName;
     let LocalMobileNumber = LocalBody.inMobileNumber;
     let LocalBranch = LocalParams.inBranch;
-    let LocalUserUuId = LocalBody.inUserUuId;
+    let LocalUserName = LocalBody.UserName;
 
-    let LocalFromRepo = PostFuncRepo({ inMobileNumber: LocalMobileNumber, inBranch: LocalBranch, inUserUuId: LocalUserUuId });
+    let LocalFromRepo = PostFuncRepo({ inMobileNumber: LocalMobileNumber, inBranch: LocalBranch, inUserName: LocalUserName });
 
     if (LocalFromRepo.KTF === false) {
         res.status(500).send(LocalFromRepo.KReason);
