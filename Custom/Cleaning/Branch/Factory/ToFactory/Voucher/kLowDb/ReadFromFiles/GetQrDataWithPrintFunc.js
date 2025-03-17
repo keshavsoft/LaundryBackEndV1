@@ -1,13 +1,17 @@
 import { StartFunc as BranchDc } from "../CommonFuncs/FromApi/BranToFactDC.js";
 import { StartFunc as BranchScan } from "../CommonFuncs/FromApi/BranToFactBScan.js";
 import { StartFunc as QrCodes } from "../CommonFuncs/FromApi/QrCodes.js";
+import { StartFunc as Users } from '../CommonFuncs/FromApi/Users.js';
 
 let StartFunc = ({ inDC }) => {
     let LocalDC = parseInt(inDC);
     let BranchDcdb = BranchDc();
     let LocalBranchScan = BranchScan();
     let LocalQrCodes = QrCodes();
+    const UsersData = Users();
+
     let LocalFilterBranchDc = BranchDcdb.find((e) => e.pk === LocalDC);
+    let LocalFindUsers = UsersData.find(e => e.UserName == LocalFilterBranchDc?.UserName);
 
     if (LocalFilterBranchDc === undefined) {
         return "No Data";
@@ -21,6 +25,7 @@ let StartFunc = ({ inDC }) => {
     });
     return {
         ...LocalFilterBranchDc,
+        BranchMobile: LocalFindUsers?.BranchMobile,
         Date: new Date(LocalFilterBranchDc.DateTime).toLocaleDateString("en-GB"),
         OrderData: Object.values(LocalMergeData)
     };
