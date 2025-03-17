@@ -1,10 +1,10 @@
 import { StartFunc as StartFuncPullData } from "./PullData/EntryFile.js";
 import { StartFunc as LocalFuncGeneratePk } from "./Generate.js";
 
-let StartFunc = ({ inMobile, inBranch, inUserUuId }) => {
+let StartFunc = ({ inMobile, inBranch, inUserName }) => {
     let LocalMobile = inMobile;
     let LocalBranch = inBranch;
-    let LocalUserUuId = inUserUuId;
+    let LocalUserName = inUserName;
 
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
@@ -21,7 +21,7 @@ let StartFunc = ({ inMobile, inBranch, inUserUuId }) => {
         inMobileNumber: LocalMobile,
         inData: db.data,
         inBranch: LocalBranch,
-        inUserUuId : LocalUserUuId
+        inUserName : LocalUserName
     });
 
     if (LocalDataWithUuid.KTF === false) {
