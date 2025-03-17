@@ -14,8 +14,7 @@ const StartFunc = ({ inBranch, inFromDate, inToDate }) => {
 const jFLocalBranchWideData = (inData, inBranch, inFromDate, inToDate) => {
     return inData
         .filter(e => {
-            let itemDate = Object.values(e.ItemsInOrder)[0].DeliveryDateTime.split('-').reverse().join('-');
-
+            let itemDate = Object.values(e?.ItemsInOrder)[0]?.DeliveryDateTime.split('-').reverse().join('-');
             return itemDate >= inFromDate && itemDate <= inToDate && e.OrderData.BranchName === inBranch;
         })
         .reverse();
@@ -24,12 +23,11 @@ const jFLocalBranchWideData = (inData, inBranch, inFromDate, inToDate) => {
 const jFLocalAllBranchData = (inData, inFromDate, inToDate) => {
     return inData
         .filter(e => {
-            let itemDate = Object.values(e.ItemsInOrder)[0].DeliveryDateTime.split('-').reverse().join('-');
-
+            let itemDate = Object.values(e?.ItemsInOrder)[0]?.DeliveryDateTime.split('-').reverse().join('-');
             return itemDate >= inFromDate && itemDate <= inToDate;
         })
         .reverse();
 };
 
 export { StartFunc };
-// StartFunc({ inBranch:"BranOrdersKKD", inFromDate:"08-03-2025", inToDate:"08-03-2025" });
+// StartFunc({ inBranch: "BranOrdersKKD", inFromDate: "17-03-2025", inToDate: "17-03-2025" });
