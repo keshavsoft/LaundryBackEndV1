@@ -15,7 +15,7 @@ let StartFunc = async ({ inBranch, inId, inSubId }) => {
   // Find the last object in the array
   let LocalFindId = LocalarrayOfObjects[LocalarrayOfObjects.length - 1];
 
-  if (LocalFindId.UuId !== LocalId) {
+  if (LocalFindId.pk !== LocalId) {
     return { KTF: false, KReason: `Id : ${LocalId} not Last Order data` };
   };
 
