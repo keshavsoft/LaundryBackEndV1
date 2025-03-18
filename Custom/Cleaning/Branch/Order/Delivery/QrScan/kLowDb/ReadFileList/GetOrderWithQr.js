@@ -4,10 +4,11 @@ import { StartFunc as To_Delivery_Scan } from '../CommonFuncs/To_Delivery_Scan.j
 const StartFunc = ({ inOrderId, inBranch }) => {
     const LocalOrderId = inOrderId;
     const LocalBranch = inBranch;
+    const LocalBranchModifiesName = LocalBranch.replace("BranOrders", "");
 
     const LocalQrCodes = QrCodes();
     const LocalTo_Delivery_Scan = To_Delivery_Scan();
-    const LocalFilterDeliveryScan = LocalTo_Delivery_Scan.filter(e => e.BranchName === LocalBranch && e.OrderNumber == LocalOrderId);
+    const LocalFilterDeliveryScan = LocalTo_Delivery_Scan.filter(e => e.BranchName === LocalBranchModifiesName && e.OrderNumber == LocalOrderId);
 
     return jFLocalMergeFunc({ inOrederQrs: LocalQrCodes, inDeliveryScan: LocalFilterDeliveryScan });
 };
