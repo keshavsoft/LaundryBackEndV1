@@ -1,0 +1,8 @@
+###Get for as is data
+POST http://localhost:7318/Login/LoginAdmin/Admin/UsingJwt/CreateToken
+Content-Type: application/json
+
+{
+"UserName": "KeshavAdmin",
+"Password": "KeshavSoft"
+}
