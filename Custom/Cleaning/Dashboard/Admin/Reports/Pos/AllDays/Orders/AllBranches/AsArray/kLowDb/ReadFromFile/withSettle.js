@@ -11,7 +11,7 @@ let StartFunc = () => {
             Mobile: file.CustomerData.Mobile,
             BranchName: file.OrderData.BranchName,
             OrderDate: new Date(file.OrderData.Currentdateandtime).toLocaleDateString('en-GB'),
-            OrderNumber: file.UuId
+            OrderNumber: file.pk
         }))
     );
 
