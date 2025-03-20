@@ -4,8 +4,8 @@ var router = express.Router();
 
 import {
     GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc,
-    GetRowCountFunc, GetFromBranchDcWiseItemsFunc, GetToScanPendingFunc, GetDCQrReturnFunc, GetAggregateFunc
-
+    GetRowCountFunc, GetFromBranchDcWiseItemsFunc, GetToScanPendingFunc, GetDCQrReturnFunc, GetAggregateFunc,
+    GetFilterFunc,GetScannedFilterFunc
 }
     from '../../controllers/getFuncs/EntryFile.js';
 
@@ -20,6 +20,8 @@ router.get('/FromBranchDcWiseItems/:id/:inFactory', GetFromBranchDcWiseItemsFunc
 router.get('/ToScanPending/:id/:inFactory', GetToScanPendingFunc);
 router.get('/DCQrReturn/:id/:inFactory', GetDCQrReturnFunc);
 router.get('/Aggregate/:inFactory', GetAggregateFunc);
+router.get('/Filter/:inFactory/:fromDate/:toDate', GetFilterFunc);
+router.get('/ScannedFilter/:inFactory/:fromDate/:toDate', GetScannedFilterFunc);
 
 
 export { router };

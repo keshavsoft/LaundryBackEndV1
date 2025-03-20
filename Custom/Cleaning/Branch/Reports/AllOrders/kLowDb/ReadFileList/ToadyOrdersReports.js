@@ -19,7 +19,6 @@ const jFLocalBranchWideData = ({ inData, inFromDate, inToDate }) =>
     inData
         .filter(e => {
             const itemDate = new Date(e.OrderData.Currentdateandtime).toISOString().slice(0, 10).split('-').reverse().join('-');
-            console.log("--", itemDate, inFromDate, inToDate);
 
             return itemDate >= inFromDate && itemDate <= inToDate;
         })
