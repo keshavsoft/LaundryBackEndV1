@@ -1,5 +1,6 @@
 @echo off
 cd ..\FrontEndForUsers
+git pull
 
 call npm run Users
 
