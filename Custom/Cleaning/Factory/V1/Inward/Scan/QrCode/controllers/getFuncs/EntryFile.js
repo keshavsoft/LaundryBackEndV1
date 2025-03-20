@@ -10,7 +10,8 @@ import {
     GetToScanPendingFunc as GetToScanPendingRepo,
     GetDCQrReturnFunc as GetDCQrReturnFuncRepo,
     GetAggregateFunc as GetAggregateFuncRepo,
-
+    GetFilterFunc as GetFilterFuncRepo,
+    GetScannedFilterFunc as GetScannedFilterFuncRepo
 } from '../../repos/getFuncs/EntryFile.js';
 
 let GetFunc = async (req, res) => {
@@ -120,7 +121,29 @@ let GetAggregateFunc = async (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
+let GetFilterFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalFactory = LocalParams.inFactory;
+    let LocalFromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+
+    let LocalFromRepo = GetFilterFuncRepo({ inFactory: LocalFactory, fromDate: LocalFromDate, toDate: LocalToDate });
+
+    res.status(200).json(LocalFromRepo);
+};
+
+let GetScannedFilterFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalFactory = LocalParams.inFactory;
+    let LocalFromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+
+    let LocalFromRepo = GetScannedFilterFuncRepo({ inFactory: LocalFactory, fromDate: LocalFromDate, toDate: LocalToDate });
+
+    res.status(200).json(LocalFromRepo);
+};
 export {
     GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc,
-    GetRowCountFunc, GetFromBranchDcWiseItemsFunc, GetToScanPendingFunc, GetDCQrReturnFunc, GetAggregateFunc
+    GetRowCountFunc, GetFromBranchDcWiseItemsFunc, GetToScanPendingFunc, GetDCQrReturnFunc, GetAggregateFunc,
+    GetFilterFunc,GetScannedFilterFunc
 };

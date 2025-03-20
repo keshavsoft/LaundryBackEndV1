@@ -10,7 +10,8 @@ import {
     GetToScanPendingFunc as GetToScanPendingFuncDal,
     GetDCQrReturnFunc as GetDCQrReturnFuncDal,
     GetAggregateFunc as GetAggregateFuncDal,
-
+    GetFilterFunc as GetFilterFuncDal,
+    GetScannedFilterFunc as GetScannedFilterFuncDal
 } from '../../dals/getFuncs/EntryFile.js';
 
 let GetFunc = ({ inFactory }) => {
@@ -53,10 +54,18 @@ let GetDCQrReturnFunc = ({ inFactory, inId }) => {
 };
 
 let GetAggregateFunc = ({ inFactory }) => {
-    return GetAggregateFuncDal({ inFactory});
+    return GetAggregateFuncDal({ inFactory });
 };
 
+let GetFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    return GetFilterFuncDal({ inFactory, fromDate, toDate });
+};
+
+let GetScannedFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    return GetScannedFilterFuncDal({ inFactory, fromDate, toDate });
+};
 export {
     GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc,
-    GetFromBranchDcWiseItemsFunc, GetToScanPendingFunc, GetDCQrReturnFunc, GetAggregateFunc
+    GetFromBranchDcWiseItemsFunc, GetToScanPendingFunc, GetDCQrReturnFunc, GetAggregateFunc,GetFilterFunc,
+    GetScannedFilterFunc
 };
