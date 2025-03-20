@@ -12,7 +12,7 @@ let StartFunc = () => {
                 BranchName: file.OrderData.BranchName,
                 OrderDate: file.OrderData.Currentdateandtime,
                 OrderDateWithTime: new Date(file.OrderData.Currentdateandtime).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit' }),
-                OrderNumber: file.UuId,
+                OrderNumber: file.pk,
                 TimeSpan: TimeSpan(file.OrderData.Currentdateandtime)
             });
         });
