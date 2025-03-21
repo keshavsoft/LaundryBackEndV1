@@ -1,0 +1,8 @@
+### Qr Raise
+POST  http://localhost:7318/Custom/Cleaning/Branch/Order/NewOrderV1/BranOrdersLBC
+Content-Type: application/json
+
+{
+    "inMobileNumber": "9676673574",
+    "inUserUuId":"84f12250-b8fc-4d14-93da-1cb7a61b756e"
+}
