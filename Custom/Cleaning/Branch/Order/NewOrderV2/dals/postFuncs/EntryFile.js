@@ -1,4 +1,4 @@
-import { StartFunc as EntryScan } from '../../kLowDb/EntryScan/WithChecking/StartFunc.js';
+import { StartFunc as EntryScan } from '../../kLowDb/WriteFile/NewOrder/StartFunc.js';
 import { StartFunc as Settlement } from '../../kLowDb/WriteFile/Settlement/EntryFile.js';
 
 let PostFunc = ({ inMobileNumber, inBranch, inUserName }) => {
