@@ -5,8 +5,9 @@ import {
     GetAsIsFunc as GetAsIsFuncDal,
     GetRowDataFunc as GetRowDataFuncDal,
     GetAggregateFunc as GetAggregateFuncDal,
-    GetOnlyScanDcFunc as GetOnlyScanDcFuncDal
-    
+    GetOnlyScanDcFunc as GetOnlyScanDcFuncDal,
+    GetQrStatusFilterFunc as GetQrStatusFilterFuncDal
+
 } from '../../dals/getFuncs/EntryFile.js';
 
 let GetFunc = ({ inFactory }) => {
@@ -37,6 +38,11 @@ let GetOnlyScanDcFunc = ({ inFactory }) => {
     return GetOnlyScanDcFuncDal({ inFactory });
 };
 
+let GetQrStatusFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    return GetQrStatusFilterFuncDal({ inFactory, fromDate, toDate });
+};
+
 export {
-    GetFunc, GetQrStatusFunc, GetSummaryFunc, GetAsIsFunc, GetRowDataFunc, GetAggregateFunc, GetOnlyScanDcFunc
+    GetFunc, GetQrStatusFunc, GetSummaryFunc, GetAsIsFunc, GetRowDataFunc, GetAggregateFunc,GetOnlyScanDcFunc,
+    GetQrStatusFilterFunc
 };
