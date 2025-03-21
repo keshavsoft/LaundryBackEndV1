@@ -6,7 +6,6 @@ import {
 let PostFunc = (req, res) => {
     let LocalParams = req.params;
     let LocalBody = req.body;
-    // let LocalCustomerName = LocalBody.inCustomerName;
     let LocalMobileNumber = LocalBody.inMobileNumber;
     let LocalBranch = LocalParams.inBranch;
     let LocalUserName = LocalBody.UserName;

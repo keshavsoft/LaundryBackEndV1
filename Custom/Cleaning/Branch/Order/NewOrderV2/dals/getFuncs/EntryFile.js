@@ -1,7 +1,7 @@
 import { StartFunc as MaxRow } from "../../kLowDb/ReadFile/MaxRow.js";
 import { StartFunc as inRowOrder } from "../../kLowDb/ReadFile/inRow.js";
 import { StartFunc as Settelment } from "../../kLowDb/ReadFile/Settelment.js";
-import { StartFunc as InsertOrderWithChecking } from "../../kLowDb/EntryScan/WithChecking/StartFunc.js";
+import { StartFunc as InsertOrderWithChecking } from "../../kLowDb/WriteFile/NewOrder/StartFunc.js";
 import { StartFunc as StartFuncFromGetTodayCustomerFilter } from "../../kLowDb/ReadFile/TodayCustomerOrders.js";
 import { StartFunc as StartFuncFromGetYesterdayCustomerFilter } from '../../kLowDb/ReadFile/YesterdayCustomerFilter.js';
 import { StartFunc as StartFuncFromGetWeekCustomerFilter } from '../../kLowDb/ReadFile/WeekCustomerFilter.js';
