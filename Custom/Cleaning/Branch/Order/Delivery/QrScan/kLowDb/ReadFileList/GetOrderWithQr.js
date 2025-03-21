@@ -16,7 +16,7 @@ const StartFunc = ({ inOrderId, inBranch }) => {
 const jFLocalMergeFunc = ({ inOrederQrs, inDeliveryScan }) => {
     let Localreturndata = inDeliveryScan.map(loopDc => {
         const LocalQrfind = inOrederQrs.find(ele => ele.pk == loopDc.QrCodeId);
-
+        let LocalAddOns = LocalQrfind?.AddOnArray.map(e => e?.AddOnService).toString();
         return {
             OrderNumber: loopDc?.OrderNumber,
             CustomerName: LocalQrfind?.BookingData.CustomerData.CustomerName,
@@ -24,6 +24,7 @@ const jFLocalMergeFunc = ({ inOrederQrs, inDeliveryScan }) => {
             OrderDate: new Date(LocalQrfind?.BookingData.OrderData.Currentdateandtime).toLocaleDateString('en-GB'),
             DeliveryDate: new Date(LocalQrfind?.DeliveryDateTime).toLocaleDateString('en-GB'),
             ItemName: LocalQrfind?.ItemName,
+            AddOns: LocalAddOns,
             Rate: LocalQrfind?.Rate,
             QrCodeId: loopDc?.QrCodeId,
             BranchName: loopDc?.BranchName,
