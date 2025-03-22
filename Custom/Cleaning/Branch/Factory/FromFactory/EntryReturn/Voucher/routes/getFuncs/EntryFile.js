@@ -10,6 +10,6 @@ import {
 router.get('/:inBranch', GetFunc);
 router.get('/QrStatus/:inBranch', GetQrStatusFunc);
 router.get('/RowData/:id', GetRowDataFunc);
-router.get('/ScanOnlyDc/:inBranch', GetScanOnlyDcFunc);
+router.get('/ScanOnlyDc/:inBranch/:fromDate/:toDate', GetScanOnlyDcFunc);
 
 export { router };
