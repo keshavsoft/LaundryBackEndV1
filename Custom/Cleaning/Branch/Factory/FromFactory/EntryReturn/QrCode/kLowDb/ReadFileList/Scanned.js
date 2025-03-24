@@ -3,7 +3,7 @@ import { StartFunc as FromFactoryCancelScan } from '../CommonFuncs/FromApi/FromF
 import { StartFunc as EntryCancelScan } from '../CommonFuncs/FromApi/EntryCancelScan.js';
 import { StartFunc as EntryCancelDc } from '../CommonFuncs/FromApi/EntryCancelDc.js';
 
-let StartFunc = ({ inBranch }) => {
+let StartFunc = ({ inBranch, fromDate, toDate }) => {
     // let LocalFindValue = new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
     let LocalBranch = inBranch;
     const modifiedBranch = LocalBranch.replace("BranOrders", "");
@@ -27,9 +27,19 @@ let StartFunc = ({ inBranch }) => {
 
     let LocalArrayReverseData = localReturnData.slice().reverse();
 
-    return LocalArrayReverseData;
+    // return LocalArrayReverseData;
+    return jFLocalFactoryWideData({ inData: LocalArrayReverseData, inBranch: modifiedBranch, fromDate, toDate });
 };
 
+const jFLocalFactoryWideData = ({ inData, inBranch, fromDate, toDate }) => {
+    return inData
+        .filter(e => {
+            const itemDate = e.DCDate.split('-').reverse().join('-').replace(/\//g, '-');
+
+            return itemDate >= fromDate && itemDate <= toDate && e.BranchName === inBranch;
+        })
+        .reverse();
+};
 let jFLocalMergeFunc = ({ inQrData, inScandata, inEntryScan, inBranchDC }) => {
     let jVarLocalReturnObject = inScandata.map(loopScan => {
         const matchedRecord = inQrData.find(loopQr => loopQr.pk == loopScan.QrCodeId);

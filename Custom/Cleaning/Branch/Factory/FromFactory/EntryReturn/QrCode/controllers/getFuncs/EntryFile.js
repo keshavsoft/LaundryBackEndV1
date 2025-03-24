@@ -12,7 +12,9 @@ import {
 let GetFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch;
-    let LocalFromRepo = GetFuncRepo({ inBranch: LocalBranch });
+    let LocalFromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+    let LocalFromRepo = GetFuncRepo({ inBranch: LocalBranch, fromDate: LocalFromDate, toDate: LocalToDate });
 
     res.status(200).json(LocalFromRepo);
 };
@@ -28,7 +30,9 @@ let GetPendingFunc = async (req, res) => {
 let GetScannedFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch;
-    let LocalFromRepo = GetScannedFuncRepo({ inBranch: LocalBranch });
+    let LocalFromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+    let LocalFromRepo = GetScannedFuncRepo({ inBranch: LocalBranch, fromDate: LocalFromDate, toDate: LocalToDate });
 
     res.status(200).json(LocalFromRepo);
 };

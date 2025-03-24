@@ -9,12 +9,12 @@ import {
 
 } from '../../dals/getFuncs/EntryFile.js';
 
-let GetFunc = ({ inBranch }) => {
-    return GetFuncDal({ inBranch });
+let GetFunc = ({ inBranch, fromDate, toDate }) => {
+    return GetFuncDal({ inBranch, fromDate, toDate });
 };
 
-let GetScannedFunc = ({ inBranch }) => {
-    return GetScannedFuncDal({ inBranch });
+let GetScannedFunc = ({ inBranch, fromDate, toDate }) => {
+    return GetScannedFuncDal({ inBranch, fromDate, toDate });
 };
 
 let GetPendingFunc = ({ inBranch }) => {
