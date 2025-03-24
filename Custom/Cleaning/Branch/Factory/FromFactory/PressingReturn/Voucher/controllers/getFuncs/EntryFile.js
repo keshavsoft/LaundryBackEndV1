@@ -32,7 +32,9 @@ let GetRowDataFunc = async (req, res) => {
 let GetOnlyScanDcFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch;
-    let LocalFromRepo = await GetOnlyScanDcFuncRepo({ inBranch: LocalBranch });
+    let LocalFromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+    let LocalFromRepo = await GetOnlyScanDcFuncRepo({ inBranch: LocalBranch, fromDate: LocalFromDate, toDate: LocalToDate });
 
     if (LocalFromRepo === false) {
         res.status(500).send(LocalFromRepo);

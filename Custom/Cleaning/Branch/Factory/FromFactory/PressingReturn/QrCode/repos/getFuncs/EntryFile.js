@@ -5,16 +5,24 @@ import {
     GetRowDataFunc as GetRowDataFuncDal,
     GetRowQrDataFunc as GetRowQrDataFuncDal,
     GetFromFactoryDcWiseItems as GetFromFactoryDcWiseItemsDal,
-    GetToScanPendingFunc as GetToScanPendingFuncDal
-
+    GetToScanPendingFunc as GetToScanPendingFuncDal,
+    GetAllFilterFunc as GetAllFilterFuncDal,
+    GetScannedFilterFunc as GetScannedFilterFuncDal
 } from '../../dals/getFuncs/EntryFile.js';
 
 let GetFunc = ({ inBranch }) => {
     return GetFuncDal({ inBranch });
 };
 
+let GetAllFilterFunc = ({ inBranch, fromDate, toDate }) => {
+    return GetAllFilterFuncDal({ inBranch, fromDate, toDate });
+};
 let GetScannedFunc = ({ inBranch }) => {
     return GetScannedFuncDal({ inBranch });
+};
+
+let GetScannedFilterFunc = ({ inBranch, fromDate, toDate }) => {
+    return GetScannedFilterFuncDal({ inBranch, fromDate, toDate });
 };
 
 let GetPendingFunc = ({ inBranch }) => {
@@ -37,5 +45,6 @@ let GetToScanPendingFunc = ({ inBranch, inId }) => {
     return GetToScanPendingFuncDal({ inBranch, inId });
 };
 export {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, GetToScanPendingFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc,
+    GetFromFactoryDcWiseItems, GetToScanPendingFunc, GetAllFilterFunc,GetScannedFilterFunc
 };

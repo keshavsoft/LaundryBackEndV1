@@ -5,18 +5,28 @@ import {
     GetRowDataFunc as GetRowDataFuncRepo,
     GetRowQrDataFunc as GetRowQrDataFuncRepo,
     GetFromFactoryDcWiseItems as GetFromFactoryDcWiseItemsRepo,
-    GetToScanPendingFunc as GetToScanPendingFuncRepo
-
+    GetToScanPendingFunc as GetToScanPendingFuncRepo,
+    GetAllFilterFunc as GetAllFilterFuncRepo,
+    GetScannedFilterFunc as GetScannedFilterFuncRepo
 } from '../../repos/getFuncs/EntryFile.js';
 
 let GetFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch;
-    let LocalFromRepo = GetFuncRepo({ inBranch: LocalBranch });
+    let LocalFromRepo = GetFuncRepo({ inBranch: LocalBranch});
 
     res.status(200).json(LocalFromRepo);
 };
 
+let GetAllFilterFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalBranch = LocalParams.inBranch;
+    let LocalFromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+    let LocalFromRepo = GetAllFilterFuncRepo({ inBranch: LocalBranch, fromDate: LocalFromDate, toDate: LocalToDate });
+
+    res.status(200).json(LocalFromRepo);
+};
 let GetPendingFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch;
@@ -28,11 +38,20 @@ let GetPendingFunc = async (req, res) => {
 let GetScannedFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch;
-    let LocalFromRepo = GetScannedFuncRepo({ inBranch: LocalBranch });
+    let LocalFromRepo = GetScannedFuncRepo({ inBranch: LocalBranch});
 
     res.status(200).json(LocalFromRepo);
 };
 
+let GetScannedFilterFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalBranch = LocalParams.inBranch;
+    let LocalFromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+    let LocalFromRepo = GetScannedFilterFuncRepo({ inBranch: LocalBranch, fromDate: LocalFromDate, toDate: LocalToDate });
+
+    res.status(200).json(LocalFromRepo);
+};
 let GetRowDataFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch;
@@ -84,5 +103,6 @@ let GetToScanPendingFunc = async (req, res) => {
 };
 
 export {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, GetToScanPendingFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc,
+   GetFromFactoryDcWiseItems, GetToScanPendingFunc,GetAllFilterFunc,GetScannedFilterFunc
 };
