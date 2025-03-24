@@ -3,7 +3,7 @@ import { StartFunc as EntryCancelScan } from '../CommonFuncs/FromApi/EntryCancel
 import { StartFunc as FromFactoryCancelScan } from '../CommonFuncs/FromApi/FromFactoryCancelScan.js';
 import { StartFunc as EntryCancelDc } from '../CommonFuncs/FromApi/EntryCancelDc.js';
 
-let StartFunc = ({ inBranch }) => {
+let StartFunc = ({ inBranch, fromDate, toDate }) => {
     // let LocalFindValue = new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
     let LocalBranch = inBranch;
     const modifiedBranch = LocalBranch.replace("BranOrders", "");
@@ -23,7 +23,19 @@ let StartFunc = ({ inBranch }) => {
     });
     let LocalArrayReverseData = jVarLocalTransformedData.slice().reverse();
 
-    return LocalArrayReverseData;
+    // return LocalArrayReverseData;
+    return jFLocalFactoryWideData({ inData: LocalArrayReverseData, inBranch: modifiedBranch, fromDate, toDate });
+
+};
+
+const jFLocalFactoryWideData = ({ inData, inBranch, fromDate, toDate }) => {
+    return inData
+        .filter(e => {
+            const itemDate = e.DCDate.split('-').reverse().join('-').replace(/\//g, '-');
+
+            return itemDate >= fromDate && itemDate <= toDate && e.BranchName === inBranch;
+        })
+        .reverse();
 };
 
 let jFLocalMergeFunc = ({ inQrData, inScandata, inEntryScan, inBranchDC }) => {

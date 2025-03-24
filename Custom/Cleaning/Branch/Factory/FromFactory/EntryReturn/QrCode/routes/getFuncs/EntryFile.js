@@ -7,9 +7,9 @@ import {
 }
     from '../../controllers/getFuncs/EntryFile.js';
 
-router.get('/:inBranch', GetFunc);
+router.get('/:inBranch/:fromDate/:toDate', GetFunc);
 router.get('/Pending/:inBranch', GetPendingFunc);
-router.get('/Scanned/:inBranch', GetScannedFunc);
+router.get('/Scanned/:inBranch/:fromDate/:toDate', GetScannedFunc);
 router.get('/RowQrData/:id', GetRowQrDataFunc);
 router.get('/RowData/:id/:inBranch', GetRowDataFunc);
 router.get('/FromFactoryDcWiseItems/:id/:inBranch', GetFromFactoryDcWiseItems);

@@ -7,8 +7,8 @@ import { StartFunc as GetRowQrDataById } from '../../kLowDb/ReadFileList/GetRowQ
 import { StartFunc as GetFromFactoryDcWiseItemsById } from '../../kLowDb/ReadFileList/GetFromFactoryDcWiseItemsById.js';
 import { StartFunc as GetToScanPendingById } from '../../kLowDb/ReadFileList/GetToScanPendingById.js';
 
-let GetFunc = ({ inBranch }) => {
-    let LocalFromLowDb = All({ inBranch });
+let GetFunc = ({ inBranch, fromDate, toDate }) => {
+    let LocalFromLowDb = All({ inBranch, fromDate, toDate });
 
     return LocalFromLowDb;
 };
@@ -19,8 +19,8 @@ let GetPendingFunc = ({ inBranch }) => {
     return LocalFromLowDb;
 };
 
-let GetScannedFunc = ({ inBranch }) => {
-    let LocalFromLowDb = Scanned({ inBranch });
+let GetScannedFunc = ({ inBranch, fromDate, toDate }) => {
+    let LocalFromLowDb = Scanned({ inBranch, fromDate, toDate });
 
     return LocalFromLowDb;
 };
