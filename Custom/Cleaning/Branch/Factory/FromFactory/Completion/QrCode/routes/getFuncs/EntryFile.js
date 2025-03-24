@@ -2,7 +2,9 @@ import express from 'express';
 var router = express.Router();
 
 import {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, GetRowDataFunc, GetToScanPendingFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, 
+    GetRowDataFunc, GetToScanPendingFunc,GetAllFilterFunc,
+	GetScannedFilterFunc
 } from '../../controllers/getFuncs/EntryFile.js';
 
 import { GetFuncs } from '../../Middleware/getFuncs/EntryFile.js';
@@ -20,5 +22,7 @@ router.get('/RowQrData/:id', RowQrDataMiddleware, GetRowQrDataFunc);
 router.get('/RowData/:id/:inBranch', RowDataMiddleware, GetRowDataFunc);
 router.get('/FromFactoryDcWiseItems/:id/:inBranch', FactoryItemsMiddleware, GetFromFactoryDcWiseItems);
 router.get('/ToScanPending/:id/:inBranch', ToScanPendingMiddleware, GetToScanPendingFunc);
+router.get('/AllFilter/:inBranch/:fromDate/:toDate', GetAllFilterFunc);
+router.get('/ScannedFilter/:inBranch/:fromDate/:toDate', GetScannedFilterFunc);
 
 export { router };
