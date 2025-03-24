@@ -15,13 +15,13 @@ let GetRowDataFunc = ({ inId }) => {
     return GetRowData({ inId });
 };
 
-let GetOnlyScanDcFunc = async ({inBranch}) => {
-	let LocalFromLowDb = await StartFuncFromGetOnlyScanDc({inBranch});
+let GetOnlyScanDcFunc = async ({ inBranch, fromDate, toDate }) => {
+    let LocalFromLowDb = await StartFuncFromGetOnlyScanDc({ inBranch, fromDate, toDate });
 
-	return await LocalFromLowDb;
+    return await LocalFromLowDb;
 };
 
 export {
     GetFunc, GetQrStatusFunc, GetRowDataFunc,
-	GetOnlyScanDcFunc
+    GetOnlyScanDcFunc
 };

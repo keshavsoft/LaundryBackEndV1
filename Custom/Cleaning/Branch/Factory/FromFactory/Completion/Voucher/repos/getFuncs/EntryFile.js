@@ -2,7 +2,7 @@ import {
     GetFunc as GetFuncDal,
     GetQrStatusFunc as GetQrStatusFuncDal,
     GetRowDataFunc as GetRowDataFuncDal,
-	GetOnlyScanDcFunc as GetOnlyScanDcFuncDal
+    GetOnlyScanDcFunc as GetOnlyScanDcFuncDal
 } from '../../dals/getFuncs/EntryFile.js';
 
 let GetFunc = ({ inBranch }) => {
@@ -17,13 +17,13 @@ let GetRowDataFunc = ({ inId }) => {
     return GetRowDataFuncDal({ inId });
 };
 
-let GetOnlyScanDcFunc = async ({inBranch}) => {
-	let LocalFromDal = await GetOnlyScanDcFuncDal({inBranch});
+let GetOnlyScanDcFunc = async ({ inBranch, fromDate, toDate }) => {
+    let LocalFromDal = await GetOnlyScanDcFuncDal({ inBranch, fromDate, toDate });
 
-	return LocalFromDal;
+    return LocalFromDal;
 };
 
 export {
     GetFunc, GetQrStatusFunc, GetRowDataFunc,
-	GetOnlyScanDcFunc
+    GetOnlyScanDcFunc
 };

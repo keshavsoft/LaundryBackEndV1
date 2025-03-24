@@ -6,6 +6,8 @@ import { StartFunc as GetRowDataById } from '../../kLowDb/ReadFileList/GetRowDat
 import { StartFunc as GetRowQrDataById } from '../../kLowDb/ReadFileList/GetRowQrDataById.js';
 import { StartFunc as GetFromFactoryDcWiseItemsById } from '../../kLowDb/ReadFileList/GetFromFactoryDcWiseItemsById.js';
 import { StartFunc as GetToScanPendingById } from '../../kLowDb/ReadFileList/GetToScanPendingById.js';
+import { StartFunc as StartFuncFromGetAllFilter } from '../../kLowDb/ReadFileList/AllFilter.js';
+import { StartFunc as StartFuncFromGetScannedFilter } from '../../kLowDb/ReadFileList/ScannedFilter.js';
 
 let GetFunc = ({ inBranch }) => {
     let LocalFromLowDb = All({ inBranch });
@@ -49,6 +51,20 @@ let GetToScanPendingFunc = ({ inBranch, inId }) => {
     return LocalFromLowDb;
 };
 
+let GetAllFilterFunc = async ({inBranch,fromDate,toDate}) => {
+	let LocalFromLowDb = await StartFuncFromGetAllFilter({inBranch,fromDate,toDate});
+
+	return await LocalFromLowDb;
+};
+
+let GetScannedFilterFunc = async ({ inBranch, fromDate, toDate }) => {
+	let LocalFromLowDb = await StartFuncFromGetScannedFilter({ inBranch, fromDate, toDate });
+
+	return await LocalFromLowDb;
+};
+
 export {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, GetToScanPendingFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, GetToScanPendingFunc,
+	GetAllFilterFunc,
+	GetScannedFilterFunc
 };

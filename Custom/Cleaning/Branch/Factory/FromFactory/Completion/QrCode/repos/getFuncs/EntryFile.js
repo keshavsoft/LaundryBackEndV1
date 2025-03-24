@@ -6,7 +6,9 @@ import {
     GetRowQrDataFunc as GetRowQrDataFuncDal,
     GetFromFactoryDcWiseItems as GetFromFactoryDcWiseItemsDal,
     GetToScanPendingFunc as GetToScanPendingFuncDal
-
+    ,
+    GetAllFilterFunc as GetAllFilterFuncDal,
+	GetScannedFilterFunc as GetScannedFilterFuncDal
 } from '../../dals/getFuncs/EntryFile.js';
 
 let GetFunc = ({ inBranch }) => {
@@ -36,6 +38,20 @@ let GetFromFactoryDcWiseItems = ({ inBranch, inId }) => {
 let GetToScanPendingFunc = ({ inBranch, inId }) => {
     return GetToScanPendingFuncDal({ inBranch, inId });
 };
+let GetAllFilterFunc = async ({ inBranch, fromDate, toDate }) => {
+    let LocalFromDal = await GetAllFilterFuncDal({ inBranch, fromDate, toDate });
+
+    return LocalFromDal;
+};
+
+let GetScannedFilterFunc = async ({ inBranch, fromDate, toDate }) => {
+	let LocalFromDal = await GetScannedFilterFuncDal({ inBranch, fromDate, toDate });
+
+	return LocalFromDal;
+};
+
 export {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, GetToScanPendingFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, GetToScanPendingFunc,
+    GetAllFilterFunc,
+	GetScannedFilterFunc
 };

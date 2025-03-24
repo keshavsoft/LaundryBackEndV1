@@ -6,7 +6,9 @@ import {
     GetRowQrDataFunc as GetRowQrDataFuncRepo,
     GetFromFactoryDcWiseItems as GetFromFactoryDcWiseItemsRepo,
     GetToScanPendingFunc as GetToScanPendingFuncRepo
-
+    ,
+    GetAllFilterFunc as GetAllFilterFuncRepo,
+	GetScannedFilterFunc as GetScannedFilterFuncRepo
 } from '../../repos/getFuncs/EntryFile.js';
 
 let GetFunc = async (req, res) => {
@@ -83,6 +85,38 @@ let GetToScanPendingFunc = async (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
+let GetAllFilterFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalBranch = LocalParams.inBranch;
+    let LocalfromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+    let LocalFromRepo = await GetAllFilterFuncRepo({ inBranch: LocalBranch, fromDate: LocalfromDate, toDate: LocalToDate });
+
+    if (LocalFromRepo === false) {
+        res.status(500).send(LocalFromRepo);
+        return;
+    };
+
+    res.status(200).send(JSON.stringify(LocalFromRepo));
+};
+
+let GetScannedFilterFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalBranch = LocalParams.inBranch;
+    let LocalfromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+	let LocalFromRepo = await GetScannedFilterFuncRepo({ inBranch: LocalBranch, fromDate: LocalfromDate, toDate: LocalToDate });
+
+	if (LocalFromRepo === false) {
+		res.status(500).send(LocalFromRepo);
+		return;
+	};
+
+	res.status(200).send(JSON.stringify(LocalFromRepo));
+};
+
 export {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, GetToScanPendingFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetRowQrDataFunc, GetFromFactoryDcWiseItems, GetToScanPendingFunc,
+    GetAllFilterFunc,
+	GetScannedFilterFunc
 };
