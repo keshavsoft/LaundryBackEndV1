@@ -3,7 +3,7 @@ import express from 'express';
 var router = express.Router();
 
 import {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc, GetFilterFunc
 }
     from '../../controllers/getFuncs/EntryFile.js';
 
@@ -14,5 +14,6 @@ router.get('/Returns/:inFactory', GetReturnsFunc);
 router.get('/RowData/:id/:inFactory', GetRowDataFunc);
 router.get('/RowQrData/:id', GetRowQrDataFunc);
 router.get('/RowCount/:id/:inBranch', GetRowCountFunc);
+router.get('/Filter/:inFactory/:fromDate/:toDate', GetFilterFunc);
 
 export { router };
