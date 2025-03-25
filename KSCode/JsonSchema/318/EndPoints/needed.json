@@ -6,5 +6,7 @@
     "AggrFuncs",
     "Alter",
     "Delete",
-    "Search"
+    "Search",
+    "SelectedColumns",
+    "GroupByColumn"
 ]
