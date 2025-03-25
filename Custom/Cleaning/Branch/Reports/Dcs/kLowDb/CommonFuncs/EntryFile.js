@@ -1,60 +1,61 @@
-import { StartFunc as BranchDc } from './FromApi/BranToFactDC.js';
-import { StartFunc as BranchScan } from './FromApi/BranToFactBScan.js';
-import { StartFunc as entryScan } from './FromApi/BranToFactFScan.js';
+import { StartFunc as EntryCancelDc } from '../CommonFuncs/FromApi/EntryCancelDc.js';
+import { StartFunc as EntryCancelScan } from '../CommonFuncs/FromApi/EntryCancelScan.js';
+import { StartFunc as FromFactoryCancelScan } from '../CommonFuncs/FromApi/FromFactoryCancelScan.js';
 
-let StartFunc = ({ inBranch, inFromDate, inToDate }) => {
-    let BranchDcdb = BranchDc();
-    let BranchScandb = BranchScan();
-    let LocalEntryScanData = entryScan();
-    const modifiedBranch = inBranch.replace("BranOrders", "");
+const StartFunc = ({ inBranch, fromDate, toDate }) => {
+    let LocalBranch = inBranch;
+    const modifiedBranch = LocalBranch.replace("BranOrders", "");
 
-    let LocalFilterBranchDc = BranchDcdb.filter(e => e.BranchName === modifiedBranch);
+    const EntryCancelDcData = EntryCancelDc();
+    const EntryCancelScanData = EntryCancelScan();
+    const FromFactoryCancelScanData = FromFactoryCancelScan();
 
-    let jVarLocalTransformedData = jFLocalMergeFunc({
-        inBranchDc: LocalFilterBranchDc,
-        inBranchScan: BranchScandb,
-        inEntryScanData: LocalEntryScanData
+    const LocalFilterBranchDc = EntryCancelDcData.filter(e =>
+        e.Branch === modifiedBranch &&
+        new Date(e.DateTime) >= new Date(fromDate) &&
+        new Date(e.DateTime) <= new Date(toDate)
+    );
+
+    const TransformedData = MergeFunc({
+        BranchDc: LocalFilterBranchDc,
+        EntryCancelScan: EntryCancelScanData,
+        FromFactoryCancelScan: FromFactoryCancelScanData
     });
 
-    return jFLocalBranchWideData({ inData: jVarLocalTransformedData, inFromDate, inToDate });
+    let BranchDcdb = TransformedData.filter(ele => ele.Pending !== 0);
+
+    return BranchDcdb.slice().reverse();
 };
 
-const jFLocalBranchWideData = ({ inData, inFromDate, inToDate }) =>
-    inData
-        .filter(e => {
-            const itemDate = e.Date.split('/').join('-');
-            return itemDate >= inFromDate && itemDate <= inToDate;
-        })
-        .reverse();
+const MergeFunc = ({ BranchDc, EntryCancelScan, FromFactoryCancelScan }) => {
+    return BranchDc.map(dc => {
+        const Sent = EntryCancelScan.filter(qr => qr.VoucherRef == dc.pk).length;
+        const Scanned = FromFactoryCancelScan.filter(qr => qr.VoucherRef == dc.pk).length;
 
-let jFLocalMergeFunc = ({ inBranchDc, inBranchScan, inEntryScanData }) => {
-    return inBranchDc.map(loopDc => {
-        let LocalFilterData = inBranchScan.filter(loopQr => loopQr.VoucherRef == loopDc.pk);
-        let LocalScanFilter = inEntryScanData.filter(loopQr => loopQr.VoucherRef == loopDc.pk);
-        loopDc.Date = new Date(loopDc?.Date).toLocaleDateString('en-GB');
-        loopDc.BrancScan = LocalFilterData;
-        loopDc.ItemDetails = LocalFilterData.length;
-        loopDc.EntryScan = LocalScanFilter;
-        loopDc.EntryScanCount = LocalScanFilter.length;
-        loopDc.pending = LocalFilterData.length - LocalScanFilter.length
-        loopDc.EntryDc = LocalScanFilter.length > 0;
-        loopDc.SendDc = loopDc?.SendDc;
-        loopDc.TimeSpan = TimeSpan(loopDc?.DateTime);
-        return loopDc;
+        return {
+            ...dc,
+            Sent,
+            Scanned,
+            Pending: Sent - Scanned,
+            TimeSpan: TimeSpan(dc.DateTime)
+        };
     });
 };
 
-function TimeSpan(DateTime) {
-    let diffMs = new Date() - new Date(DateTime);
-    let diffMonths = Math.floor(diffMs / 2629800000);
-    let diffDays = Math.floor((diffMs % 2629800000) / 86400000);
-    let diffHrs = Math.floor((diffMs % 86400000) / 3600000);
-    let diffMins = Math.round((diffMs % 3600000) / 60000);
+const TimeSpan = DateTime => {
+    const diffMs = new Date() - new Date(DateTime);
+    const diffMonths = Math.floor(diffMs / 2629800000);
+    const diffDays = Math.floor((diffMs % 2629800000) / 86400000);
+    const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
+    const diffMins = Math.round((diffMs % 3600000) / 60000);
 
-    return diffMonths > 0 ? `${diffMonths} months, ${diffDays} days, ${diffHrs} hours, ${diffMins} min` :
-        diffDays > 0 ? `${diffDays} days, ${diffHrs} hours, ${diffMins} min` :
-            diffHrs > 0 ? `${diffHrs} hours, ${diffMins} min` :
-                `${diffMins} min`;
+    return diffMonths > 0
+        ? `${diffMonths} months, ${diffDays} days, ${diffHrs} hrs, ${diffMins} min`
+        : diffDays > 0
+            ? `${diffDays} days, ${diffHrs} hrs, ${diffMins} min`
+            : diffHrs > 0
+                ? `${diffHrs} hrs, ${diffMins} min`
+                : `${diffMins} min`;
 };
 
 export { StartFunc };
