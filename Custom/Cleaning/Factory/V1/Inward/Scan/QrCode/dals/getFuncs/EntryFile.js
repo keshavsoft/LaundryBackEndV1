@@ -85,6 +85,7 @@ let GetScannedFilterFunc = ({ inFactory, fromDate, toDate }) => {
 
     return LocalFromLowDb;
 };
+
 let GetAggregateFunc = ({ inFactory }) => {
     return "Harini"
     // let LocalFromLowDb = GetAggregateById({ inFactory, inId });
