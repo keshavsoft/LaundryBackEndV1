@@ -5,7 +5,9 @@ import {
     GetRowDataFunc as GetRowDataFuncDal,
     GetReturnsFunc as GetReturnsFuncDal,
     GetRowQrDataFunc as GetRowQrDataFuncDal,
-    GetRowCountFunc as GetRowCountFuncDal
+    GetRowCountFunc as GetRowCountFuncDal,
+    GetFilterFunc as GetFilterFuncDal,
+    GetScannedFilterFunc as GetScannedFilterFuncDal
 
 } from '../../dals/getFuncs/EntryFile.js';
 
@@ -37,6 +39,14 @@ let GetRowCountFunc = ({ inFactory, inId }) => {
     return GetRowCountFuncDal({ inFactory, inId });
 };
 
+let GetFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    return GetFilterFuncDal({ inFactory, fromDate, toDate });
+};
+
+let GetScannedFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    return GetScannedFilterFuncDal({ inFactory, fromDate, toDate });
+};
+
 export {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc, GetFilterFunc, GetScannedFilterFunc
 };
