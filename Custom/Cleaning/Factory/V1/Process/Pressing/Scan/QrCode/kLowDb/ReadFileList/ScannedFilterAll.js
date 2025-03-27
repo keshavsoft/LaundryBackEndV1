@@ -1,9 +1,10 @@
 import { StartFunc as QrCodes } from '../CommonFuncs/QrCodes.js';
-import { StartFunc as WashingScan } from '../CommonFuncs/WashingScan.js';
-import { StartFunc as EntryScan } from '../CommonFuncs/BranToFactFScan.js';
-import { StartFunc as EntryCancelScan } from '../CommonFuncs/EntryCancelScan.js';
-import { StartFunc as WashingDC } from '../CommonFuncs/WashingDC.js';
-import { StartFunc as ReWashScan } from '../CommonFuncs/ReWashScan.js';
+import { StartFunc as WashingScan } from '../CommonFuncs/PressingScan.js';
+import { StartFunc as EntryScan } from '../CommonFuncs/WashingScan.js';
+import { StartFunc as EntryCancelScan } from '../CommonFuncs/PressingCancelScan.js';
+import { StartFunc as WashingDC } from '../CommonFuncs/PressingDC.js';
+// import { StartFunc as ReWashScan } from '../CommonFuncs/ReWashScan.js';
+import { StartFunc as ReWashScan } from '../CommonFuncs/Press_ReWashScan.js';
 
 let StartFunc = ({ inFactory, fromDate, toDate }) => {
     // let LocalFindValue = new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
@@ -15,6 +16,7 @@ let StartFunc = ({ inFactory, fromDate, toDate }) => {
     const EntryCancelScandb = EntryCancelScan();
     const WashingDCdb = WashingDC();
     const ReWashScandb = ReWashScan();
+
     let LocalFilterWashingScan = WashingScandb.filter(e => e.FactoryName === LocalFactory);
     let LocalFilterQr = Qrdb.filter(e => e.location === LocalFactory);
     let LocalFilterEntryScan = EntryScandb.filter(e => e.FactoryName === LocalFactory);
@@ -25,8 +27,6 @@ let StartFunc = ({ inFactory, fromDate, toDate }) => {
     let LocalFilterEntryScanData = LocalFilterEntryScan.filter(loopQr =>
         !LocalFilterCancelScan.some(loopScan => loopScan.QrCodeId == loopQr.QrCodeId)
     );
-
-
 
     let jVarLocalTransformedData = jFLocalMergeFunc({
         inQrData: LocalFilterQr,
@@ -46,12 +46,13 @@ let StartFunc = ({ inFactory, fromDate, toDate }) => {
 };
 
 const jFLocalFactoryWideData = ({ inData, fromDate, toDate }) => {
+    // console.log(" fromDate, toDate ", fromDate, toDate);
 
     return inData
         .filter(e => {
             // console.log("e", e);
-
             const itemDate = e.DCDate.split('/').join('-').replace(/\//g, '-');
+            // console.log("itemDate", itemDate);
             return itemDate >= fromDate && itemDate <= toDate;
         })
         .reverse();
@@ -63,7 +64,7 @@ let jFLocalMergeFunc = ({ inQrData, inScandata, inEntryScan, inEntryCancelScan, 
         const match = inEntryScan.some(loopEntryScan => loopEntryScan.QrCodeId == loopScan.QrCodeId);
         const CheckEntryReturn = inEntryCancelScan.some(loopEntryReturnScan => loopEntryReturnScan.QrCodeId == loopScan.QrCodeId);
         const matchedWashingDC = inWashingDC.find(loopDC => loopDC.pk == loopScan.VoucherRef);
-
+        const matchRewashScan = inRewashScan.some(loopReWashScan => loopReWashScan.QrCodeId == loopScan.QrCodeId && loopReWashScan.ReWash);
 
         return {
             OrderNumber: matchedRecord?.GenerateReference.ReferncePk,
@@ -71,14 +72,13 @@ let jFLocalMergeFunc = ({ inQrData, inScandata, inEntryScan, inEntryCancelScan, 
             DeliveryDate: new Date(matchedRecord?.DeliveryDateTime).toLocaleDateString('en-GB'),
             ItemName: matchedRecord?.ItemName,
             Rate: matchedRecord?.Rate,
-            ReWashStatus: loopScan.ReWash,
             VoucherNumber: matchedWashingDC?.pk,
             DCDate: new Date(matchedWashingDC?.Date).toLocaleDateString('en-GB'),
-            RewashStatus: loopScan.ReWash,
             QrCodeId: loopScan.QrCodeId,
             BranchName: matchedRecord?.BookingData.OrderData.BranchName,
             Status: match,
             EntryReturnStarus: CheckEntryReturn,
+            ReWashStatus: matchRewashScan,
             EntryScanDate: new Date(matchedRecord?.DateTime).toLocaleDateString('en-GB'),
             TimeSpan: TimeSpan({ DateTime: loopScan.DateTime })
         };
@@ -111,4 +111,4 @@ function TimeSpan({ DateTime }) {
 };
 
 export { StartFunc };
-// StartFunc({ inFactory: "Vizag" })
+// let Localdata = StartFunc({ inFactory: "Vizag", fromDate: "14-02-2025", toDate: "14-02-2025" }); console.log("Localdata", Localdata);
