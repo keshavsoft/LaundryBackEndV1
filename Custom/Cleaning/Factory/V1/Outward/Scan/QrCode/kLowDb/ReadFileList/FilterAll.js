@@ -3,7 +3,7 @@ import { StartFunc as PressingScan } from '../CommonFuncs/PressingScan.js';
 import { StartFunc as EntryScan } from '../CommonFuncs/CompletionScan.js';
 import { StartFunc as EntryCancelScan } from '../CommonFuncs/PressingCancelScan.js';
 
-let StartFunc = ({ inFactory }) => {
+let StartFunc = ({ inFactory, fromDate, toDate }) => {
     // let LocalFindValue = new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
     let LocalFactory = inFactory;
     const Qrdb = QrCodes();
@@ -17,7 +17,7 @@ let StartFunc = ({ inFactory }) => {
 
     let jVarLocalTransformedData = jFLocalMergeFunc({
         inQrData: LocalFilterQr,
-        PressingScandata: LocalFilterPressingScan,
+        inPressingScan: LocalFilterPressingScan,
         inEntryScan: LocalFilterEntryScan,
         inEntryCancelScan: LocalFilterCancelScan
     });
@@ -38,12 +38,15 @@ const jFLocalFactoryWideData = ({ inData, fromDate, toDate }) => {
         .filter(e => {
             // console.log("e", e);
             const itemDate = e.DCDate.split('/').join('-').replace(/\//g, '-');
+            // console.log("itemDate", itemDate);
             return itemDate >= fromDate && itemDate <= toDate;
         })
         .reverse();
 };
 
 let jFLocalMergeFunc = ({ inQrData, inPressingScan, inEntryScan, inEntryCancelScan }) => {
+    // console.log("inPressingScan", inPressingScan);
+
 
     let jVarLocalReturnObject = inPressingScan.map(loopScan => {
         const matchedRecord = inQrData.find(loopQr => loopQr.pk == loopScan.QrCodeId);
@@ -90,3 +93,4 @@ function TimeSpan({ DateTime }) {
 };
 
 export { StartFunc };
+// let Localdata = StartFunc({ inFactory: "Vizag", fromDate: "24-03-2025", toDate: "24-03-2025" }); console.log("Localdata", Localdata);
