@@ -1,7 +1,8 @@
 import {
     GetFunc as GetFuncRepo,
     GetQrStatusFunc as GetQrStatusFuncRepo,
-    GetRowDataFunc as GetRowDataFuncRepo
+    GetRowDataFunc as GetRowDataFuncRepo,
+    GetFilterFunc as GetFilterFuncRepo
 
 } from '../../repos/getFuncs/EntryFile.js';
 
@@ -29,6 +30,17 @@ let GetRowDataFunc = async (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
+let GetFilterFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalFactory = LocalParams.inFactory;
+    let LocalFromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+
+    let LocalFromRepo = GetFilterFuncRepo({ inFactory: LocalFactory, fromDate: LocalFromDate, toDate: LocalToDate });
+
+    res.status(200).json(LocalFromRepo);
+};
+
 export {
-    GetFunc, GetQrStatusFunc, GetRowDataFunc
+    GetFunc, GetQrStatusFunc, GetRowDataFunc, GetFilterFunc
 };
