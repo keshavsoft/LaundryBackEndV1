@@ -1,5 +1,5 @@
-import { StartFunc as WashingCancelDC } from '../CommonFuncs/PressingCancelDC.js';
-import { StartFunc as WashingCancelScan } from '../CommonFuncs/PressingCancelScan.js';
+import { StartFunc as ReWashDC } from '../CommonFuncs/Press_ReWashDC.js';
+import { StartFunc as ReWashScan } from '../CommonFuncs/Press_ReWashScan.js';
 
 let LocalFindValue = () => {
     return new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
@@ -9,16 +9,15 @@ let StartFunc = ({ inFactory }) => {
     let LocalFactory = inFactory;
     let LocalDateValue = LocalFindValue();
 
-    const WashingCancelDCdb = WashingCancelDC();
-    // console.log("WashingCancelDCdb", WashingCancelDCdb, LocalDateValue);
+    const ReWashDCdb = ReWashDC();
 
-    const WashingCancelScandb = WashingCancelScan();
+    const ReWashScandb = ReWashScan();
 
-    let LocalFilterBranchDc = WashingCancelDCdb.filter(e => {
+    let LocalFilterBranchDc = ReWashDCdb.filter(e => {
         return new Date(e.Date).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
     });
 
-    let LocalFilterEntryScan = WashingCancelScandb.filter(e => {
+    let LocalFilterEntryScan = ReWashScandb.filter(e => {
         return new Date(e.Date).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
     });
 
@@ -63,4 +62,3 @@ function TimeSpan({ DateTime }) {
 };
 
 export { StartFunc };
-// let Localdata = StartFunc({ inFactory: "Vizag" }); console.log("Localdata", Localdata);
