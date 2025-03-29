@@ -2,7 +2,7 @@ import {
     GetFunc as GetFuncDal,
     GetQrStatusFunc as GetQrStatusFuncDal,
     GetRowDataFunc as GetRowDataFuncDal
-    
+
 } from '../../dals/getFuncs/EntryFile.js';
 
 let GetFunc = ({ inFactory }) => {
@@ -17,6 +17,14 @@ let GetRowDataFunc = ({ inId }) => {
     return GetRowDataFuncDal({ inId });
 };
 
+let GetFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    return GetFilterFuncDal({ inFactory, fromDate, toDate });
+};
+
+let GetTodayFunc = ({ inFactory }) => {
+    return GetTodayFuncDal({ inFactory });
+};
+
 export {
-    GetFunc, GetQrStatusFunc, GetRowDataFunc
+    GetFunc, GetQrStatusFunc, GetRowDataFunc, GetFilterFunc, GetTodayFunc
 };
