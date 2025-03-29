@@ -1,8 +1,9 @@
 import {
     GetFunc as GetFuncRepo,
     GetQrStatusFunc as GetQrStatusFuncRepo,
-    GetFilterFunc as GetFilterFuncRepo
-    
+    GetFilterFunc as GetFilterFuncRepo,
+    GetTodayFilterFunc as GetTodayFilterFuncRepo
+
 } from '../../repos/getFuncs/EntryFile.js';
 
 let GetFunc = async (req, res) => {
@@ -32,6 +33,14 @@ let GetFilterFunc = async (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
+let GetTodayFilterFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalFactory = LocalParams.inFactory;
+    let LocalFromRepo = GetTodayFilterFuncRepo({ inFactory: LocalFactory });
+
+    res.status(200).json(LocalFromRepo);
+};
+
 export {
-    GetFunc, GetQrStatusFunc, GetFilterFunc
+    GetFunc, GetQrStatusFunc, GetFilterFunc, GetTodayFilterFunc
 };

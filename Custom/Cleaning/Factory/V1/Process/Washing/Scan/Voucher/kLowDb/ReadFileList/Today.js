@@ -1,5 +1,5 @@
-import { StartFunc as WashingCancelDC } from '../CommonFuncs/PressingCancelDC.js';
-import { StartFunc as WashingCancelScan } from '../CommonFuncs/PressingCancelScan.js';
+import { StartFunc as WashingDc } from '../CommonFuncs/WashingDc.js';
+import { StartFunc as WashingScan } from '../CommonFuncs/WashingScan.js';
 
 let LocalFindValue = () => {
     return new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
@@ -9,16 +9,17 @@ let StartFunc = ({ inFactory }) => {
     let LocalFactory = inFactory;
     let LocalDateValue = LocalFindValue();
 
-    const WashingCancelDCdb = WashingCancelDC();
-    // console.log("WashingCancelDCdb", WashingCancelDCdb, LocalDateValue);
+    const WashingDcdb = WashingDc();
+    // WashingDcdb.read();
 
-    const WashingCancelScandb = WashingCancelScan();
+    const WashingScandb = WashingScan();
+    // WashingScandb.read();
 
-    let LocalFilterBranchDc = WashingCancelDCdb.filter(e => {
+    let LocalFilterBranchDc = WashingDcdb.filter(e => {
         return new Date(e.Date).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
     });
 
-    let LocalFilterEntryScan = WashingCancelScandb.filter(e => {
+    let LocalFilterEntryScan = WashingScandb.filter(e => {
         return new Date(e.Date).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
     });
 
@@ -36,8 +37,8 @@ let jFLocalMergeFunc = ({ inBranchDc, inEntryScan }) => {
     let jVarLocalReturnObject = inBranchDc.map(loopDc => {
         const LocalFilterData = inEntryScan.filter(loopQr => loopQr.VoucherRef == loopDc.pk);
         loopDc.ItemDetails = LocalFilterData.length;
-        loopDc.TimeSpan = TimeSpan({ DateTime: loopDc.DateTime });
         loopDc.Date = new Date(loopDc.Date).toLocaleDateString('en-GB');
+        loopDc.TimeSpan = TimeSpan({ DateTime: loopDc.DateTime });
         return loopDc
     });
 
@@ -63,4 +64,3 @@ function TimeSpan({ DateTime }) {
 };
 
 export { StartFunc };
-// let Localdata = StartFunc({ inFactory: "Vizag" }); console.log("Localdata", Localdata);
