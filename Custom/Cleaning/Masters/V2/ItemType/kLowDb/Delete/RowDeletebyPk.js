@@ -1,4 +1,4 @@
-import { StartFunc as MastersItems } from '../CommonFuncs/MastersItems.js';
+import { StartFunc as MastersItems } from '../CommonFuncs/MastersItemTypes.js';
 
 let StartFunc = async ({ inId }) => {
   let LocalId = parseInt(inId);

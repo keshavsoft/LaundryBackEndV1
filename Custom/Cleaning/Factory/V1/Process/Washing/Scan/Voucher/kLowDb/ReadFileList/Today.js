@@ -1,5 +1,5 @@
-import { StartFunc as WashingDc } from '../CommonFuncs/FromApi/WashingDC.js';
-import { StartFunc as WashingScan } from '../CommonFuncs/FromApi/WashingScan.js';
+import { StartFunc as WashingDc } from '../CommonFuncs/WashingDc.js';
+import { StartFunc as WashingScan } from '../CommonFuncs/WashingScan.js';
 
 let LocalFindValue = () => {
     return new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
@@ -8,16 +8,24 @@ let LocalFindValue = () => {
 let StartFunc = ({ inFactory }) => {
     let LocalFactory = inFactory;
     let LocalDateValue = LocalFindValue();
-    const WashingDcdb = WashingDc();
-    const WashingScandb = WashingScan();
 
-    let LocalFilterBranchDc = WashingDcdb.filter(e => {
+    const WashingDcdb = WashingDc();
+    WashingDcdb.read();
+
+    const WashingScandb = WashingScan();
+    WashingScandb.read();
+
+    let LocalFilterBranchDc = WashingDcdb.data.filter(e => {
+        return new Date(e.Date).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
+    });
+
+    let LocalFilterEntryScan = WashingScandb.data.filter(e => {
         return new Date(e.Date).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
     });
 
     let jVarLocalTransformedData = jFLocalMergeFunc({
         inBranchDc: LocalFilterBranchDc,
-        inEntryScan: WashingScandb
+        inEntryScan: LocalFilterEntryScan
     });
     let LocalArrayReverseData = jVarLocalTransformedData.slice().reverse();
 
