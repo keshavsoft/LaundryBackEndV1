@@ -5,11 +5,7 @@ import {
 } from '../../repos/getFuncs/EntryFile.js';
 
 let GetDataOnlyFunc = (req, res) => {
-    console.log("Pushpa");
-    
     let LocalFromRepo = GetDataOnlyFuncRepo();
-    console.log("LocalFromRepo", LocalFromRepo);
-
 
     if (LocalFromRepo.KTF === false) {
         res.status(500).send(LocalFromRepo.KReason);
