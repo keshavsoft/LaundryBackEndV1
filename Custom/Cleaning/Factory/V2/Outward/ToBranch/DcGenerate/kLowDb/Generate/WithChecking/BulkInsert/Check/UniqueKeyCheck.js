@@ -1,6 +1,6 @@
-const StartFunc = ({ inData, inDataToInsert, inSchema }) => {
+const StartFunc = ({ inData, inDataToInsert, inTableSchema }) => {
     let LocalInData = inData;
-    let LocalTableSchema = inSchema;
+    let LocalTableSchema = inTableSchema;
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
     let LocalKeysNeeded = {};
@@ -12,17 +12,21 @@ const StartFunc = ({ inData, inDataToInsert, inSchema }) => {
     };
 
     for (const prop in LocalKeysNeeded) {
-        let LoopInsideFilter = LocalInData.find(element => {
-            return element[prop] === inDataToInsert[prop];
-        });
 
-        if (LoopInsideFilter === undefined === false) {
+        const LoopInsideFilter = inDataToInsert.filter(item1 => !LocalInData.some(item2 => item1[prop] === item2[prop]));
+
+        if (LoopInsideFilter.length === 0) {
             LocalReturnData.KReason = `Unique error : ${prop}`;
             return LocalReturnData;
         };
+
+        LocalReturnData.KTF = true;
+        LocalReturnData.JsonData = LoopInsideFilter;
+        return LocalReturnData;
     };
 
     LocalReturnData.KTF = true;
+    LocalReturnData.JsonData = inDataToInsert;
 
     return LocalReturnData;
 };

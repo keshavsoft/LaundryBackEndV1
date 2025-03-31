@@ -1,4 +1,4 @@
-import { StartFunc as StartFuncReturnDbObjectWithSchema } from '../../../CommonFuncs/ReturnDbObjectWithSchema.js';
+import { StartFunc as StartFuncReturnDbObjectWithSchema } from '../../../../CommonFuncs/FactoryOut_QrCodeScanSchema.js';
 
 let StartFunc = () => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
