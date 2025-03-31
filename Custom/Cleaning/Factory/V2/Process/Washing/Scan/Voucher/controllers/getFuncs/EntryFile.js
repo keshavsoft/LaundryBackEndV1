@@ -31,7 +31,7 @@ let GetRowDataFunc = async (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
-let GetFilterFunc = (req, res) => {
+let GetFilterFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalFactory = LocalParams.inFactory;
     let LocalFromDate = LocalParams.fromDate;
@@ -42,7 +42,7 @@ let GetFilterFunc = (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
-let GetTodayFunc = (req, res) => {
+let GetTodayFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalFactory = LocalParams.inFactory;
     let LocalFromRepo = GetTodayFuncRepo({ inFactory: LocalFactory });

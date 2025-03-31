@@ -69,6 +69,7 @@ let jFLocalMergeFunc = ({ inQrData, inScandata, inEntryScan, inEntryCancelScan, 
             Status: match,
             EntryReturnStarus: CheckEntryReturn,
             ReWashStatus: matchRewashScan,
+            EntryScanDate: new Date(matchedRecord?.DateTime).toLocaleDateString('en-GB'),
             TimeSpan: TimeSpan({ DateTime: loopScan.DateTime })
         };
     }).filter(record => record.MatchedRecord !== null);

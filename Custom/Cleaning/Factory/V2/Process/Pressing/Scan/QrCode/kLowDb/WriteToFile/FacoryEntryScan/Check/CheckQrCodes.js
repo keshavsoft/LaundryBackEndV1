@@ -14,11 +14,11 @@ const StartFuncForBookings = ({ inTable, inQrId }) => {
         return LocalReturnData;
     };
 
-    if (LocalRowNeeded.location!== LocalBranchName) {
+    if (LocalRowNeeded.location !== LocalBranchName) {
         LocalReturnData.KReason = `Not this Factory :${LocalQrId}`
         return LocalReturnData;
     };
-    LocalReturnData.JsonData = LocalRowNeeded
+    LocalReturnData.JsonData = LocalRowNeeded;
     LocalReturnData.KTF = true;
     return LocalReturnData;
 };

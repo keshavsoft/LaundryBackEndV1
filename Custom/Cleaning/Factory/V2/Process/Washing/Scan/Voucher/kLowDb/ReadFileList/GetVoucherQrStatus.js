@@ -1,5 +1,5 @@
 import { StartFunc as WashingScan } from '../CommonFuncs/WashingScan.js';
-import { StartFunc as EntryScan } from '../CommonFuncs/EntryScan.js';
+import { StartFunc as EntryScan } from '../CommonFuncs/BranToFactFScan.js';
 import { StartFunc as EntryCancelScan } from '../CommonFuncs/EntryCancelScan.js';
 import { StartFunc as WashingCancelScan } from '../CommonFuncs/WashingCancelScan.js';
 import { StartFunc as ReWashScan } from '../CommonFuncs/ReWashScan.js';

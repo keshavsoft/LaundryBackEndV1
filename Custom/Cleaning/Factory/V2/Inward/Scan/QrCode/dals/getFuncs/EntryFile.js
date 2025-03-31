@@ -8,6 +8,9 @@ import { StartFunc as GetRowCountById } from '../../kLowDb/ReadFileList/GetRowCo
 import { StartFunc as GetFromBranchDcWiseItemsById } from '../../kLowDb/ReadFileList/GetFromBranchDcWiseItemsById.js';
 import { StartFunc as GetToScanPendingById } from '../../kLowDb/ReadFileList/GetToScanPendingById.js';
 import { StartFunc as GetDCQrReturnById } from '../../kLowDb/ReadFileList/GetDCQrReturnById.js';
+import { StartFunc as FilterAll } from '../../kLowDb/ReadFileList/FilterAll.js';
+import { StartFunc as ScannedFilterAll } from '../../kLowDb/ReadFileList/ScannedFilterAll.js';
+
 
 // import HomeJson from './home.json' with {type: 'json'};
 
@@ -71,6 +74,17 @@ let GetDCQrReturnFunc = ({ inFactory, inId }) => {
     return LocalFromLowDb;
 };
 
+let GetFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    let LocalFromLowDb = FilterAll({ inFactory, fromDate, toDate });
+
+    return LocalFromLowDb;
+};
+
+let GetScannedFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    let LocalFromLowDb = ScannedFilterAll({ inFactory, fromDate, toDate });
+
+    return LocalFromLowDb;
+};
 
 let GetAggregateFunc = ({ inFactory }) => {
     return "Harini"
@@ -80,5 +94,6 @@ let GetAggregateFunc = ({ inFactory }) => {
 
 export {
     GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc,
-    GetFromBranchDcWiseItemsFunc, GetToScanPendingFunc, GetDCQrReturnFunc, GetAggregateFunc
+    GetFromBranchDcWiseItemsFunc, GetToScanPendingFunc, GetDCQrReturnFunc, GetAggregateFunc, GetFilterFunc,
+    GetScannedFilterFunc
 };

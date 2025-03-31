@@ -2,6 +2,7 @@ import { StartFunc as WashingDc } from '../CommonFuncs/FromApi/WashingDC.js';
 import { StartFunc as WashingScan } from '../CommonFuncs/FromApi/WashingScan.js';
 
 let StartFunc = ({ inFactory, fromDate, toDate }) => {
+    // let LocalFindValue = new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
     let LocalFactory = inFactory;
 
     const WashingDcdb = WashingDc();
@@ -13,8 +14,9 @@ let StartFunc = ({ inFactory, fromDate, toDate }) => {
         inBranchDc: LocalFilterBranchDc,
         inEntryScan: WashingScandb
     });
+    let LocalArrayReverseData = jVarLocalTransformedData.slice().reverse();
 
-    return jFLocalFactoryWideData({ inData: jVarLocalTransformedData, fromDate, toDate });
+    return jFLocalFactoryWideData({ inData: LocalArrayReverseData, fromDate, toDate });
 
 };
 
@@ -22,6 +24,7 @@ const jFLocalFactoryWideData = ({ inData, fromDate, toDate }) => {
 
     return inData
         .filter(e => {
+            // console.log("e", e);
             const itemDate = e.Date.split('/').join('-').replace(/\//g, '-');
             return itemDate >= fromDate && itemDate <= toDate;
         })

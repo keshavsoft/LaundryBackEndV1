@@ -1,17 +1,14 @@
 import { StartFunc as QrCodes } from '../CommonFuncs/QrCodes.js';
 import { StartFunc as ReWashScan } from '../CommonFuncs/Press_ReWashScan.js';
 import { StartFunc as ReWashDC } from '../CommonFuncs/Press_ReWashDC.js';
+import { StartFunc as EntryScan } from '../CommonFuncs/BranToFactFScan.js';
 
 let StartFunc = ({ inFactory }) => {
-    // let LocalFindValue = new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
     let LocalFactory = inFactory;
-
     const Qrdb = QrCodes();
-
     const ReWashDCdb = ReWashDC();
-
     const ReWashScandb = ReWashScan();
-
+    const EntryScandb = EntryScan();
 
     let LocalFilterReWashDC = ReWashDCdb.filter(e => e.FactoryName === LocalFactory);
     let LocalFilterReWashScan = ReWashScandb.filter(e => e.FactoryName === LocalFactory);
@@ -21,18 +18,19 @@ let StartFunc = ({ inFactory }) => {
         inQrData: LocalFilterQr,
         inScandata: LocalFilterReWashScan,
         inReWashDC: LocalFilterReWashDC,
+        inEntryScan: EntryScandb
     });
     let LocalArrayReverseData = jVarLocalTransformedData.slice().reverse();
 
     return LocalArrayReverseData;
 };
 
-let jFLocalMergeFunc = ({ inQrData, inScandata, inReWashDC }) => {
+let jFLocalMergeFunc = ({ inQrData, inScandata, inReWashDC, inEntryScan}) => {
 
     let jVarLocalReturnObject = inScandata.map(loopScan => {
         const matchedRecord = inQrData.find(loopQr => loopQr.pk == loopScan.QrCodeId);
         const matchedReWashDC = inReWashDC.find(loopDC => loopDC.pk == loopScan.QrCodeId);
-        // console.log(matchedReWashDC);
+        const matchedEntryScan = inEntryScan.find(loopDC => loopDC.QrCodeId == loopScan.QrCodeId);
         
 
         return {
@@ -46,7 +44,8 @@ let jFLocalMergeFunc = ({ inQrData, inScandata, inReWashDC }) => {
             ReWash:loopScan.ReWash,
             VoucherNumber: matchedReWashDC?.VoucherRef,
             QrCodeId: loopScan.QrCodeId,
-            DCDate: new Date(matchedReWashDC?.Date).toLocaleDateString('en-GB'),
+            DCDate: new Date(loopScan?.DCDate).toLocaleDateString('en-GB'),
+            EntryScanDate: new Date(matchedEntryScan?.DateTime).toLocaleDateString('en-GB'),
             TimeSpan: TimeSpan({ DateTime: loopScan.DateTime })
         };
     }).filter(record => record.MatchedRecord !== null);
