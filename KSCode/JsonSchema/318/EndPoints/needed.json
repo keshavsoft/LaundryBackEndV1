@@ -1,12 +1,4 @@
 [
     "Create",
-    "Show",
-    "SubTable",
-    "Bulk",
-    "AggrFuncs",
-    "Alter",
-    "Delete",
-    "Search",
-    "SelectedColumns",
-    "GroupByColumn"
+    "Bulk"
 ]
