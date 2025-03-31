@@ -12,4 +12,5 @@ router.get('/QrStatus/:inFactory', GetQrStatusFunc);
 router.get('/RowData/:id', GetRowDataFunc);
 router.get('/Filter/:inFactory/:fromDate/:toDate', GetFilterFunc);
 router.get('/Today/:inFactory', GetTodayFunc);
+
 export { router };

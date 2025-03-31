@@ -5,6 +5,8 @@ import { StartFunc as Returns } from '../../kLowDb/ReadFileList/EntryRetuns.js';
 import { StartFunc as GetRowDataById } from '../../kLowDb/ReadFileList/GetRowDataById.js';
 import { StartFunc as GetRowQrDataById } from '../../kLowDb/ReadFileList/GetRowQrDataById.js';
 import { StartFunc as GetRowCountById } from '../../kLowDb/ReadFileList/GetRowCountById.js';
+import { StartFunc as FilterAll } from '../../kLowDb/ReadFileList/FilterAll.js';
+import { StartFunc as ScannedFilterAll } from '../../kLowDb/ReadFileList/ScannedFilterAll.js';
 
 // import HomeJson from './home.json' with {type: 'json'};
 
@@ -50,6 +52,18 @@ let GetRowCountFunc = ({ inBranch, inId }) => {
     return LocalFromLowDb;
 };
 
+let GetFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    let LocalFromLowDb = FilterAll({ inFactory, fromDate, toDate });
+
+    return LocalFromLowDb;
+};
+
+let GetScannedFilterFunc = ({ inFactory, fromDate, toDate }) => {
+    let LocalFromLowDb = ScannedFilterAll({ inFactory, fromDate, toDate });
+
+    return LocalFromLowDb;
+};
+
 export {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc, GetFilterFunc, GetScannedFilterFunc
 };

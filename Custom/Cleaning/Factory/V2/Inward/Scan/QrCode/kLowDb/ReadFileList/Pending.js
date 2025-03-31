@@ -12,7 +12,10 @@ let StartFunc = ({ inFactory }) => {
     const EntryScandb = EntryScan();
     const BranchDcdb = BranchDc();
 
-    let LocalFilterBranchScan = BranchScandb.filter(e => e.DCFactory === LocalFactory);
+    // let LocalFilterBranchScan = BranchScandb.filter(e => e.DCFactory === LocalFactory);
+    let LocalFilterBranchScan = BranchScandb
+    .filter(e => e.DCFactory === LocalFactory && BranchDcdb.some(el => el.SendDc === true && el.pk == e.VoucherRef));
+
     let LocalFilterQr = Qrdb.filter(e => e.location === LocalFactory);
     let LocalFilterEntryScan = EntryScandb.filter(e => e.FactoryName === LocalFactory);
     let LocalFilterBranchDc = BranchDcdb.filter(e => e.Factory === LocalFactory);

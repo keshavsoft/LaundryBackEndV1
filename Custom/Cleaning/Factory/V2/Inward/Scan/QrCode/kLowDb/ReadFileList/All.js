@@ -5,16 +5,16 @@ import { StartFunc as EntryCancelScan } from '../CommonFuncs/EntryCancelScan.js'
 import { StartFunc as BranchDc } from '../CommonFuncs/BranToFactDC.js';
 
 let StartFunc = ({ inFactory }) => {
-    // let LocalFindValue = new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
     let LocalFactory = inFactory;
 
     const Qrdb = QrCodes();
     const BranchScandb = BranchScan();
     const EntryScandb = EntryScan();
     const EntryCancelScandb = EntryCancelScan();
-    const BranchDcdb = BranchDc();
+    const BranchDcdb = BranchDc(); // Filter out records with SendDc as false
 
-    let LocalFilterBranchScan = BranchScandb.filter(e => e.DCFactory === LocalFactory);
+    let LocalFilterBranchScan = BranchScandb
+    .filter(e => e.DCFactory === LocalFactory && BranchDcdb.some(el => el.SendDc === true && el.pk == e.VoucherRef));
 
     let jVarLocalTransformedData = jFLocalMergeFunc({
         inQrData: Qrdb,
@@ -29,7 +29,6 @@ let StartFunc = ({ inFactory }) => {
 };
 
 let jFLocalMergeFunc = ({ inQrData, inScandata, inEntryScan, inEntryCancelScan, inBranchDC }) => {
-
     let jVarLocalReturnObject = inScandata.map(loopScan => {
         const matchedRecord = inQrData.find(loopQr => loopQr.pk == loopScan.QrCodeId);
         const match = inEntryScan.some(loopEntryScan => loopEntryScan.QrCodeId == loopScan.QrCodeId);

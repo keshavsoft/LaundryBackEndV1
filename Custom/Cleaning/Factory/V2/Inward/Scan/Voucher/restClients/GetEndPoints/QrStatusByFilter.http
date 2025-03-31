@@ -1,3 +1,0 @@
-
-###Get all the rows from the database in this table
-GET  http://localhost:7318/Custom/Cleaning/Factory/V2/Inward/Scan/Voucher/QrStatusFilter/Vizag/21-03-2025/21-03-2025

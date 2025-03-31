@@ -70,6 +70,7 @@ let jFLocalMergeFunc = ({ inQrData, inScandata, inEntryScan, inBranchDC,inEntryC
             BranchName: matchedRecord?.BookingData.OrderData.BranchName,
             Status: match,
             EntryReturnStarus: CheckEntryReturn,
+            EntryScanDate: new Date(matchedRecord?.DateTime).toLocaleDateString('en-GB'),
             TimeSpan: TimeSpan({ DateTime: loopScan.DateTime })
         };
     }).filter(record => record.MatchedRecord !== null);

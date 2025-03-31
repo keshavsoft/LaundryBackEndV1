@@ -1,11 +1,6 @@
 import { StartFunc as GetVoucherQrStatus } from '../../kLowDb/ReadFiles/GetVoucherQrStatus.js';
-import { StartFunc as GetSummary } from '../../kLowDb/ReadFiles/GetSummary.js';
-import { StartFunc as GetAsIs } from '../../kLowDb/ReadFiles/GetAsIs.js';
 import { StartFunc as GetVoucher } from '../../kLowDb/ReadFiles/GetVoucher.js';
 import { StartFunc as GetRowData } from '../../kLowDb/ReadFiles/GetRowData.js';
-import { StartFunc as GetOnlyScanDc } from '../../kLowDb/ReadFiles/GetOnlyScanDc.js';
-import { StartFunc as GetFilterQrStatus } from '../../kLowDb/ReadFiles/GetFilterQrStatus.js';
-
 
 let GetFunc = ({ inFactory }) => {
     return GetVoucher({ inFactory });
@@ -13,14 +8,6 @@ let GetFunc = ({ inFactory }) => {
 
 let GetQrStatusFunc = ({ inFactory }) => {
     return GetVoucherQrStatus({ inFactory });
-};
-
-let GetSummaryFunc = ({ inFactory }) => {
-    return GetSummary({ inFactory });
-};
-
-let GetAsIsFunc = ({ inFactory }) => {
-    return GetAsIs({ inFactory });
 };
 
 let GetRowDataFunc = ({ inId }) => {
@@ -32,14 +19,6 @@ let GetAggregateFunc = ({ inId }) => {
     // return GetAggregate({ inId });
 };
 
-let GetOnlyScanDcFunc = ({ inFactory }) => {
-    return GetOnlyScanDc({ inFactory });
-};
-
-let GetQrStatusFilterFunc = ({ inFactory, fromDate, toDate}) => {
-    return GetFilterQrStatus({ inFactory, fromDate, toDate });
-};
 export {
-    GetFunc, GetQrStatusFunc, GetSummaryFunc, GetAsIsFunc, GetRowDataFunc, GetAggregateFunc, 
-    GetOnlyScanDcFunc, GetQrStatusFilterFunc
+    GetFunc, GetQrStatusFunc, GetRowDataFunc, GetAggregateFunc
 };

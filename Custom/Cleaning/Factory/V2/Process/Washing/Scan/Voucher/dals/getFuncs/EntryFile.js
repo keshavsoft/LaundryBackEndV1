@@ -26,5 +26,4 @@ let GetTodayFunc = ({ inFactory }) => {
 
 export {
     GetFunc, GetQrStatusFunc, GetRowDataFunc, GetFilterFunc, GetTodayFunc
-
 };

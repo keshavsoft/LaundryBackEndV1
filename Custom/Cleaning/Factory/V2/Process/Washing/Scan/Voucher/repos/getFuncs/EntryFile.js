@@ -1,7 +1,9 @@
 import {
     GetFunc as GetFuncDal,
     GetQrStatusFunc as GetQrStatusFuncDal,
-    GetRowDataFunc as GetRowDataFuncDal
+    GetRowDataFunc as GetRowDataFuncDal,
+    GetFilterFunc as GetFilterFuncDal,
+    GetTodayFunc as GetTodayFuncDal
 
 } from '../../dals/getFuncs/EntryFile.js';
 

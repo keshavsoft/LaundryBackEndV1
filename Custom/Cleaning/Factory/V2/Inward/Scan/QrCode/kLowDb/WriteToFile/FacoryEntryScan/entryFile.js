@@ -1,6 +1,6 @@
 import { StartFunc as StartFuncwriteFileFromModal } from './WithChecking/StartFunc.js';
 import { StartFuncForBookings as StartFuncCheckQrCodes } from "./Check/CheckQrCodes.js";
-import { StartFunc as BranchScan } from "./Check/BranchScan.js";
+import { StartFunc as BranchScan } from "./Check/BranToFactBScan.js";
 
 let StartFunc = ({ inFactory, inDataInsert, inQrCodeId, inVoucherRef }) => {
 
