@@ -1,6 +1,7 @@
 import {
     PostFunc as PostFuncRepo,
-    PostSettlementFunc as PostSettlementFuncRepo
+    PostSettlementFunc as PostSettlementFuncRepo,
+    SubTableFunc as SubTableFuncRepo
 } from '../../repos/postFuncs/EntryFile.js';
 
 let PostFunc = (req, res) => {
@@ -35,4 +36,21 @@ let PostSettlementFunc = (req, res) => {
 
     res.status(200).send(LocalFromRepo.pk.toString());
 };
-export { PostFunc, PostSettlementFunc };
+
+let SubTableFunc = (req, res) => {
+    let LocalParams = req.params;
+    let LocalBody = req.body;
+    let LocalBranch = LocalParams.inBranch;
+    let Localid = req.params.id;
+    let LocalinKey = req.params.inKey;
+
+    let LocalFromRepo = SubTableFuncRepo({ inTable: LocalBranch, inPostBody: LocalBody, id: Localid, inKey: LocalinKey });
+
+    if (LocalFromRepo.KTF === false) {
+        res.status(500).send(LocalFromRepo.KReason);
+        return;
+    };
+
+    res.status(200).send(LocalFromRepo);
+};
+export { PostFunc, PostSettlementFunc, SubTableFunc };
