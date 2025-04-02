@@ -1,5 +1,6 @@
 import {
-    GetFilterFunc as GetFilterFuncRepo
+    GetFilterFunc as GetFilterFuncRepo,
+    GetGenerateFunc as GetGenerateFuncRepo,
 } from '../../repos/getFuncs/EntryFile.js';
 
 
@@ -21,6 +22,23 @@ let GetFilterFunc = (req, res) => {
 
     res.status(200).send(JSON.stringify(LocalFromRepo));
 };
+let GetGenerateFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalBranch = LocalParams.inBranch;
+    let LocalId = LocalParams.inId;
+    let LocalFromRepo = await GetGenerateFuncRepo({ inBranch: LocalBranch, inId: LocalId });
+
+    if (LocalFromRepo.KTF === false) {
+        res.status(500).send(LocalFromRepo);
+        return;
+    };
+
+    res.status(200).send(JSON.stringify(LocalFromRepo));
+};
+
+
+
 export {
-    GetFilterFunc
+    GetFilterFunc,
+    GetGenerateFunc,
 };

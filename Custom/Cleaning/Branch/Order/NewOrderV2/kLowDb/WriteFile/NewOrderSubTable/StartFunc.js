@@ -1,7 +1,6 @@
 import { StartFunc as StartFuncPullData } from "./PullData/EntryFile.js";
 
 let StartFunc = ({ inTable, inPostBody, id, inKey }) => {
-    console.log("---", inTable, inPostBody, id, inKey );
     
     let LocalinDataToInsert = inPostBody;
     let localid = parseInt(id);
