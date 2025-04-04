@@ -1,6 +1,7 @@
 import {
     GetRowDataFunc as GetRowDataFuncRepo,
-    GetRowCountFunc as GetRowCountFuncRepo
+    GetRowCountFunc as GetRowCountFuncRepo,
+    GetPendingFunc as GetPendingFuncRepo
 } from '../../repos/GetFuncs/EntryFile.js';
 
 let GetRowDataFunc = async (req, res) => {
@@ -21,6 +22,21 @@ let GetRowCountFunc = async (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
+let GetPendingFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let Localid = LocalParams.inId;
+    let LocalFactory = LocalParams.inFactory;
+    let LocalFromRepo = await GetPendingFuncRepo({ inId: Localid, inFactory: LocalFactory });
+
+    if (LocalFromRepo === false) {
+        res.status(500).send(LocalFromRepo);
+        return;
+    };
+
+    res.status(200).send(JSON.stringify(LocalFromRepo));
+};
+
 export {
-    GetRowDataFunc, GetRowCountFunc
+    GetRowDataFunc, GetRowCountFunc,
+    GetPendingFunc
 };
