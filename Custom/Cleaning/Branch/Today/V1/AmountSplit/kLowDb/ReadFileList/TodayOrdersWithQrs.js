@@ -7,49 +7,42 @@ let StartFunc = ({ inBranch }) => {
 
     let LocalBranchName = inBranch;
 
-    const Orderdb = StartFuncCommonFuncs({ inBranchName: LocalBranchName });
-    Orderdb.read();
+    let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
+
+    LocalReturnData.KTF = false;
+
+    const db = StartFuncCommonFuncs({ inBranchName: LocalBranchName });
+    db.read();
 
     const Qrdb = StartFuncQrCodes();
     Qrdb.read();
 
-    let LocalFilterBranchData = Orderdb.data.filter(e => {
+    let LocalFilterBranchData = db.data.filter(e => {
         return new Date(e.OrderData.Currentdateandtime).toLocaleDateString('en-GB') == LocalFindValue;
     });
 
-    let jVarLocalTransformedData = jFLocalSettlementFunc({ inData: LocalFilterBranchData });
-
+    let jVarLocalTransformedData = jFLocalInsertAggValues({ inData: LocalFilterBranchData });
     let LocalInsertAggValues = jFLocalInsertQrCodeData({ inBranchName: LocalBranchName, inOrderData: jVarLocalTransformedData, inQrCodeData: Qrdb.data });
-
     let LocalArrayReverseData = LocalInsertAggValues.slice().reverse();
 
     return LocalArrayReverseData;
 };
 
-let jFLocalSettlementFunc = ({ inData }) => {
-
-
+let jFLocalInsertAggValues = ({ inData }) => {
     let jVarLocalReturnObject = [];
 
     jVarLocalReturnObject = Object.entries(inData).map(element => {
+        element[1].AggValues = {};
+        element[1].AggValues.ItemDetails = `${Object.keys(element[1].ItemsInOrder).length} / ${Object.values(element[1].ItemsInOrder).map(p => p.Pcs).reduce((acc, val) => acc + parseInt(val), 0)}`;
 
+        element[1].AggValues.SettlementAmount = ""
         if (Object.values(element[1].CheckOutData)[0]) {
-
+            element[1].AggValues.SettlementAmount = Object.values(element[1].CheckOutData)[0].CardAmount + Object.values(element[1].CheckOutData)[0].CashAmount + Object.values(element[1].CheckOutData)[0].UPIAmount;
             element[1].IsSettled = false;
-            element[1].TotalPcs = Object.values(element[1].ItemsInOrder).map(p => p.Pcs).reduce((acc, val) => acc + parseInt(val), 0)
-            element[1].DiscountPer = Object.values(element[1].CheckOutData)[0].DiscountPer
-            element[1].DiscountAmount = Object.values(element[1].CheckOutData)[0].GstData.DiscountAmount
-            element[1].CardAmount = Object.values(element[1].CheckOutData)[0].CardAmount
-            element[1].CashAmount = Object.values(element[1].CheckOutData)[0].CashAmount
-            element[1].UPIAmount = Object.values(element[1].CheckOutData)[0].UPIAmount
-            element[1].TotalAmount = Object.values(element[1].CheckOutData)[0].CardAmount + Object.values(element[1].CheckOutData)[0].CashAmount + Object.values(element[1].CheckOutData)[0].UPIAmount;
         };
         if (Object.keys(element[1].CheckOutData).length > 0) {
             element[1].IsSettled = true;
         };
-        delete element[1].ItemsInOrder;
-        delete element[1].AddOnData;
-        delete element[1].CheckOutData;
 
         return element[1];
     });
@@ -71,10 +64,7 @@ let jFLocalInsertQrCodeData = ({ inBranchName, inOrderData, inQrCodeData }) => {
                 element.IsQrCodesRaised = true;
             }
         }
-        
-        if (element.IsSettled) {
-            jVarLocalReturnArray.push(element);
-        }
+        jVarLocalReturnArray.push(element);
     });
 
     return jVarLocalReturnArray;
