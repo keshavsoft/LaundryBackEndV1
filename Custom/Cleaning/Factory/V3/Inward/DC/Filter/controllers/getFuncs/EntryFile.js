@@ -1,5 +1,6 @@
 import {
-    GetFunc as GetFuncRepo
+    GetFunc as GetFuncRepo,
+	GetSendDcFunc as GetSendDcFuncRepo
 } from '../../repos/getFuncs/EntryFile.js';
 
 let GetFunc = (req, res) => {
@@ -13,6 +14,18 @@ let GetFunc = (req, res) => {
     res.status(200).json(LocalFromRepo.JsonData);
 };
 
+let GetSendDcFunc = (req, res) => {
+	let LocalFromRepo = GetSendDcFuncRepo();
+
+	if (LocalFromRepo === false) {
+		res.status(500).send(LocalFromRepo);
+		return;
+	};
+
+	res.status(200).send(JSON.stringify(LocalFromRepo.JsonData));
+};
+
 export {
-    GetFunc
+    GetFunc,
+	GetSendDcFunc
 };
