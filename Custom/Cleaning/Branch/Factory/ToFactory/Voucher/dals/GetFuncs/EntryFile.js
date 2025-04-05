@@ -9,6 +9,7 @@ import { StartFunc as ScanOnly } from '../../kLowDb/ReadFromFiles/ScanOnly.js';
 import { StartFunc as DeleteVocher } from '../../kLowDb/ReadFromFiles/DeleteVocher.js';
 import { StartFunc as StartFuncFromGetQrDataWithPrint } from '../../kLowDb/ReadFromFiles/GetQrDataWithPrintFunc.js';
 import { StartFunc as StartFuncFromGetShowAll } from '../../kLowDb/ReadFromFile/ShowAll.js';
+import { StartFunc as StartFuncFromGetEntryScannedRowData } from '../../kLowDb/ReadFromFile/EntryScannedRowData.js';
 
 
 let GetFuncs = ({ inBranch }) => {
@@ -49,19 +50,26 @@ let GetDeleteVocherFuncs = ({ inBranch }) => {
 
 
 let GetQrDataWithPrintFunc = async ({ inDC }) => {
-	let LocalFromLowDb = await StartFuncFromGetQrDataWithPrint({ inDC });
+    let LocalFromLowDb = await StartFuncFromGetQrDataWithPrint({ inDC });
 
-	return await LocalFromLowDb;
+    return await LocalFromLowDb;
 };
-let GetShowAllFunc = async ({inBranch}) => {
-	let LocalFromLowDb = await StartFuncFromGetShowAll({inBranch});
+let GetShowAllFunc = async ({ inBranch }) => {
+    let LocalFromLowDb = await StartFuncFromGetShowAll({ inBranch });
 
-	return await LocalFromLowDb;
+    return await LocalFromLowDb;
+};
+
+let GetEntryScannedRowDataFunc = async ({ id }) => {
+    let LocalFromLowDb = await StartFuncFromGetEntryScannedRowData({ id });
+
+    return await LocalFromLowDb;
 };
 
 export {
     GetFuncs, GetToScanFuncs, GetToScanOnlyFuncs, GetSentFuncs, GetSentAndFactoryScanFuncs,
-     GetRowDataFuncs, GetToPrintOnlyFuncs, GetScanOnlyFuncs, GetDeleteVocherFuncs,
-	GetQrDataWithPrintFunc,
-	GetShowAllFunc
+    GetRowDataFuncs, GetToPrintOnlyFuncs, GetScanOnlyFuncs, GetDeleteVocherFuncs,
+    GetQrDataWithPrintFunc,
+    GetShowAllFunc,
+    GetEntryScannedRowDataFunc
 };
