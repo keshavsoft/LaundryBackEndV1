@@ -8,8 +8,9 @@ import {
     GetToPrintOnlyFuncs as GetToPrintOnlyFuncsRepo,
     GetScanOnlyFuncs as GetScanOnlyFuncsRepo,
     GetDeleteVocherFuncs as GetDeleteVocherFuncsRepo,
-	GetQrDataWithPrintFunc as GetQrDataWithPrintFuncRepo,
-	GetShowAllFunc as GetShowAllFuncRepo
+    GetQrDataWithPrintFunc as GetQrDataWithPrintFuncRepo,
+    GetShowAllFunc as GetShowAllFuncRepo,
+    GetEntryScannedRowDataFunc as GetEntryScannedRowDataFuncRepo
 } from '../../repos/GetFuncs/EntryFile.js';
 
 let GetFuncs = (req, res) => {
@@ -94,32 +95,47 @@ let GetDeleteVocherFuncs = (req, res) => {
 let GetQrDataWithPrintFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalDC = LocalParams.inDC
-	let LocalFromRepo = await GetQrDataWithPrintFuncRepo({ inDC: LocalDC });
+    let LocalFromRepo = await GetQrDataWithPrintFuncRepo({ inDC: LocalDC });
 
-	if (LocalFromRepo === false) {
-		res.status(500).send(LocalFromRepo);
-		return;
-	};
+    if (LocalFromRepo === false) {
+        res.status(500).send(LocalFromRepo);
+        return;
+    };
 
-	res.status(200).send(JSON.stringify(LocalFromRepo));
+    res.status(200).send(JSON.stringify(LocalFromRepo));
 };
 let GetShowAllFunc = async (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch
 
-	let LocalFromRepo = await GetShowAllFuncRepo({inBranch: LocalBranch});
+    let LocalFromRepo = await GetShowAllFuncRepo({ inBranch: LocalBranch });
 
-	if (LocalFromRepo === false) {
-		res.status(500).send(LocalFromRepo);
-		return;
-	};
+    if (LocalFromRepo === false) {
+        res.status(500).send(LocalFromRepo);
+        return;
+    };
 
-	res.status(200).send(JSON.stringify(LocalFromRepo));
+    res.status(200).send(JSON.stringify(LocalFromRepo));
+};
+
+let GetEntryScannedRowDataFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let LocalId = LocalParams.id
+
+    let LocalFromRepo = await GetEntryScannedRowDataFuncRepo({ id: LocalId });
+
+    if (LocalFromRepo === false) {
+        res.status(500).send(LocalFromRepo);
+        return;
+    };
+
+    res.status(200).send(JSON.stringify(LocalFromRepo));
 };
 
 export {
     GetFuncs, GetToScanFuncs, GetToScanOnlyFuncs, GetSentFuncs,
     GetSentAndFactoryScanFuncs, GetRowDataFuncs, GetToPrintOnlyFuncs, GetScanOnlyFuncs, GetDeleteVocherFuncs,
-	GetQrDataWithPrintFunc,
-	GetShowAllFunc
+    GetQrDataWithPrintFunc,
+    GetShowAllFunc,
+    GetEntryScannedRowDataFunc
 };

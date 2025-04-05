@@ -5,7 +5,7 @@ var router = express.Router();
 import {
     GetFuncs, GetToScanFuncs, GetToScanOnlyFuncs, GetSentFuncs,
     GetSentAndFactoryScanFuncs, GetRowDataFuncs, GetToPrintOnlyFuncs, GetScanOnlyFuncs, GetDeleteVocherFuncs,
-    GetQrDataWithPrintFunc, GetShowAllFunc
+    GetQrDataWithPrintFunc, GetShowAllFunc, GetEntryScannedRowDataFunc
 } from '../../controllers/GetFuncs/EntryFile.js';
 
 router.get('/:inBranch', GetFuncs);
@@ -19,5 +19,6 @@ router.get('/ScanOnly/:inBranch', GetScanOnlyFuncs);
 router.get('/DeleteVocher/:inBranch', GetDeleteVocherFuncs); // Only Delete Dc Shows
 router.get('/QrDataWithPrint/:inDC', GetQrDataWithPrintFunc); //Dc print Show
 router.get('/ShowAll/:inBranch', GetShowAllFunc);
+router.get('/EntryScannedRowData/:id', GetEntryScannedRowDataFunc);
 
 export { router };
