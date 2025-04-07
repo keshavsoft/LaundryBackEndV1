@@ -7,7 +7,8 @@ import {
     GetRowQrDataFunc as GetRowQrDataFuncRepo,
     GetRowCountFunc as GetRowCountFuncRepo,
     GetFilterFunc as GetFilterFuncRepo,
-    GetScannedFilterFunc as GetScannedFilterFuncRepo
+    GetScannedFilterFunc as GetScannedFilterFuncRepo,
+    GetDcDetailsFunc as GetDcDetailsFuncRepo
 
 } from '../../repos/getFuncs/EntryFile.js';
 
@@ -101,7 +102,20 @@ let GetScannedFilterFunc = async (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
+let GetDcDetailsFunc = async (req, res) => {
+    let LocalParams = req.params;
+    let Localid = LocalParams.id;
+    let LocalFromRepo = GetDcDetailsFuncRepo({ id: Localid });
+
+    if (LocalFromRepo.KTF === false) {
+        res.status(500).send(LocalFromRepo.KReason);
+        return;
+    };
+
+    res.status(200).json(LocalFromRepo);
+};
+
 export {
     GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc,
-    GetRowCountFunc, GetFilterFunc, GetScannedFilterFunc
+    GetRowCountFunc, GetFilterFunc, GetScannedFilterFunc, GetDcDetailsFunc
 };
