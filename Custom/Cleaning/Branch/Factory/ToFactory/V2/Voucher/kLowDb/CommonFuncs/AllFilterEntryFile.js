@@ -60,6 +60,6 @@ function TimeSpan(DateTime) {
                 `${diffMins} min`;
 };
 
-// export { StartFunc };
+export { StartFunc };
 
-StartFunc({ inBranch: "BranOrdersLBC", inFromDate: "04-04-2025", inToDate: "05-04-2025" })
+//StartFunc({ inBranch: "BranOrdersLBC", inFromDate: "04-04-2025", inToDate: "05-04-2025" })
