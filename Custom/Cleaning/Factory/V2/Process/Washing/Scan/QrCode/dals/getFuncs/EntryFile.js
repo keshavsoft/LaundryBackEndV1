@@ -7,6 +7,7 @@ import { StartFunc as GetRowQrDataById } from '../../kLowDb/ReadFileList/GetRowQ
 import { StartFunc as GetRowCountById } from '../../kLowDb/ReadFileList/GetRowCountById.js';
 import { StartFunc as AllFilter } from '../../kLowDb/ReadFileList/AllFilter.js';
 import { StartFunc as ScannedFilter } from '../../kLowDb/ReadFileList/ScannedFilter.js';
+import { StartFunc as DcDetails } from '../../kLowDb/ReadFileList/DcDetails.js';
 
 // import HomeJson from './home.json' with {type: 'json'};
 
@@ -64,6 +65,12 @@ let GetScannedFilterFunc = ({ inFactory, fromDate, toDate }) => {
     return LocalFromLowDb;
 };
 
+let GetDcDetailsFunc = ({ id }) => {
+    let LocalFromLowDb = DcDetails({ id });
+    return LocalFromLowDb;
+};
 export {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc, GetFilterFunc, GetScannedFilterFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc,
+    GetRowQrDataFunc, GetRowCountFunc, GetFilterFunc, GetScannedFilterFunc,
+    GetDcDetailsFunc
 };

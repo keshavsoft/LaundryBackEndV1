@@ -20,7 +20,7 @@ let StartFunc = ({ inFactory }) => {
     });
 
     let LocalFilterEntryScan = WashingScandb.data.filter(e => {
-        return new Date(e.Date).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
+        return new Date(e.DCDate).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
     });
 
     let jVarLocalTransformedData = jFLocalMergeFunc({
@@ -36,6 +36,7 @@ let jFLocalMergeFunc = ({ inBranchDc, inEntryScan }) => {
 
     let jVarLocalReturnObject = inBranchDc.map(loopDc => {
         const LocalFilterData = inEntryScan.filter(loopQr => loopQr.VoucherRef == loopDc.pk);
+        
         loopDc.ItemDetails = LocalFilterData.length;
         loopDc.Date = new Date(loopDc.Date).toLocaleDateString('en-GB');
         loopDc.TimeSpan = TimeSpan({ DateTime: loopDc.DateTime });

@@ -3,7 +3,8 @@ import express from 'express';
 var router = express.Router();
 
 import {
-    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc, GetFilterFunc, GetScannedFilterFunc
+    GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc,
+    GetFilterFunc, GetScannedFilterFunc, GetDcDetailsFunc
 }
     from '../../controllers/getFuncs/EntryFile.js';
 
@@ -16,5 +17,6 @@ router.get('/RowQrData/:id', GetRowQrDataFunc);
 router.get('/RowCount/:id/:inBranch', GetRowCountFunc);
 router.get('/Filter/:inFactory/:fromDate/:toDate', GetFilterFunc);
 router.get('/ScannedFilter/:inFactory/:fromDate/:toDate', GetScannedFilterFunc);
+router.get('/DcDetails/:id', GetDcDetailsFunc); //Using at DC scan
 
 export { router };
