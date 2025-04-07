@@ -1,7 +1,9 @@
 import {
     GetRowDataFunc as GetRowDataFuncDal,
     GetRowQrDataFunc as GetRowQrDataFuncDal,
-    GetRowCountFunc as GetRowCountFuncDal
+    GetRowCountFunc as GetRowCountFuncDal,
+    GetScanDcDetailsFunc as GetScanDcDetailsFuncDal
+    
 } from '../../dals/getFuncs/EntryFile.js';
 
 
@@ -17,6 +19,10 @@ let GetRowCountFunc = ({ inFactory, inId }) => {
     return GetRowCountFuncDal({ inFactory, inId });
 };
 
+let GetScanDcDetailsFunc = ({ id }) => {
+    return GetScanDcDetailsFuncDal({ id });
+};
+
 export {
-    GetRowDataFunc, GetRowQrDataFunc, GetRowCountFunc
+    GetRowDataFunc, GetRowQrDataFunc, GetRowCountFunc, GetScanDcDetailsFunc
 };

@@ -2,7 +2,7 @@
 import { StartFunc as GetRowDataById } from '../../kLowDb/ReadFileList/GetRowDataById.js';
 import { StartFunc as GetRowQrDataById } from '../../kLowDb/ReadFileList/GetRowQrDataById.js';
 import { StartFunc as GetRowCountById } from '../../kLowDb/ReadFileList/GetRowCountById.js';
-
+import { StartFunc as ScanDcDetails } from '../../kLowDb/ReadFileList/ScanDcDetails.js';
 
 let GetRowDataFunc = ({ inFactory, inId }) => {
     let LocalFromLowDb = GetRowDataById({ inFactory, inId });
@@ -21,6 +21,12 @@ let GetRowCountFunc = ({ inFactory, inId }) => {
     return LocalFromLowDb;
 };
 
+let GetScanDcDetailsFunc = ({ id }) => {
+    let LocalFromLowDb = ScanDcDetails({ id });
+
+    return LocalFromLowDb;
+};
+
 export {
-    GetRowDataFunc, GetRowQrDataFunc, GetRowCountFunc
+    GetRowDataFunc, GetRowQrDataFunc, GetRowCountFunc,GetScanDcDetailsFunc
 };
