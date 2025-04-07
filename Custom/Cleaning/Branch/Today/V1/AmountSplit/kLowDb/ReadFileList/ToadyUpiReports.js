@@ -18,17 +18,16 @@ let StartFunc = ({ inBranch }) => {
     });
 
     let jVarLocalTransformedData = jFLocalSettlementFunc({ inData: LocalFilterBranchData });
-
     let LocalInsertAggValues = jFLocalInsertQrCodeData({ inBranchName: LocalBranchName, inOrderData: jVarLocalTransformedData, inQrCodeData: Qrdb.data });
 
-    let LocalArrayReverseData = LocalInsertAggValues.slice().reverse();
+    let LocalCashAmount = LocalInsertAggValues.filter(element => element.UPIAmount !== 0);
+
+    let LocalArrayReverseData = LocalCashAmount.slice().reverse();
 
     return LocalArrayReverseData;
 };
 
 let jFLocalSettlementFunc = ({ inData }) => {
-
-
     let jVarLocalReturnObject = [];
 
     jVarLocalReturnObject = Object.entries(inData).map(element => {
@@ -51,6 +50,7 @@ let jFLocalSettlementFunc = ({ inData }) => {
         delete element[1].AddOnData;
         delete element[1].CheckOutData;
 
+
         return element[1];
     });
 
@@ -71,7 +71,6 @@ let jFLocalInsertQrCodeData = ({ inBranchName, inOrderData, inQrCodeData }) => {
                 element.IsQrCodesRaised = true;
             }
         }
-        
         if (element.IsSettled) {
             jVarLocalReturnArray.push(element);
         }
