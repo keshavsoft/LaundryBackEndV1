@@ -3,7 +3,8 @@ import {
     GetQrStatusFunc as GetQrStatusFuncRepo,
     GetFilterFunc as GetFilterFuncRepo,
     GetTodayFilterFunc as GetTodayFilterFuncRepo
-
+    ,
+    GetRowDataFunc as GetRowDataFuncRepo
 } from '../../repos/getFuncs/EntryFile.js';
 
 let GetFunc = async (req, res) => {
@@ -41,6 +42,20 @@ let GetTodayFilterFunc = async (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
+let GetRowDataFunc = (req, res) => {
+    let LocalParams = req.params;
+    let Localid = LocalParams.id;
+    let LocalFromRepo = GetRowDataFuncRepo({ id: Localid });
+
+    if (LocalFromRepo.KTF === false) {
+        res.status(500).send(LocalFromRepo.KReason);
+        return;
+    };
+
+    res.status(200).send(JSON.stringify(LocalFromRepo.JsonData));
+};
+
 export {
-    GetFunc, GetQrStatusFunc, GetFilterFunc, GetTodayFilterFunc
+    GetFunc, GetQrStatusFunc, GetFilterFunc, GetTodayFilterFunc,
+    GetRowDataFunc
 };

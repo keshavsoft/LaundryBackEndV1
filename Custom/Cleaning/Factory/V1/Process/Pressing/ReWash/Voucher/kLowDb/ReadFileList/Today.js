@@ -18,7 +18,7 @@ let StartFunc = ({ inFactory }) => {
     });
 
     let LocalFilterEntryScan = ReWashScandb.filter(e => {
-        return new Date(e.Date).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
+        return new Date(e.DCDate).toLocaleDateString('en-GB') === LocalDateValue && e.FactoryName === LocalFactory;
     });
 
     let jVarLocalTransformedData = jFLocalMergeFunc({
