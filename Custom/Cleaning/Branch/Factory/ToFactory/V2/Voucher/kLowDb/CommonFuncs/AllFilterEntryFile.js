@@ -19,15 +19,13 @@ let StartFunc = ({ inBranch, inFromDate, inToDate }) => {
 };
 
 const jFLocalBranchWideData = ({ inData, inBranch, inFromDate, inToDate }) =>
-    inData
-        .filter(e => {
-            console.log(e);
-            
-            const itemDate = e.Date.slice(0, 10).replace(/\//g, '-');
-            console.log(itemDate,inFromDate,inToDate);
-            
-            return itemDate >= inFromDate && itemDate <= inToDate && e.BranchName === inBranch;
-        })
+    inData.filter(e => {
+
+        const itemDate = e.Date.split("/").join("-");
+        // console.log(itemDate, inFromDate, inToDate);
+
+        return itemDate >= inFromDate && itemDate <= inToDate && e.BranchName === inBranch;
+    })
         .reverse();
 
 let jFLocalMergeFunc = ({ inBranchDc, inBranchScan, inEntryScanData }) => {
@@ -35,9 +33,9 @@ let jFLocalMergeFunc = ({ inBranchDc, inBranchScan, inEntryScanData }) => {
         let LocalFilterData = inBranchScan.filter(loopQr => loopQr.VoucherRef == loopDc.pk);
         let LocalScanFilter = inEntryScanData.filter(loopQr => loopQr.VoucherRef == loopDc.pk);
         loopDc.Date = new Date(loopDc?.Date).toLocaleDateString('en-GB');
-        loopDc.BrancScan = LocalFilterData;
+        // loopDc.BrancScan = LocalFilterData;
         loopDc.ItemDetails = LocalFilterData.length;
-        loopDc.EntryScan = LocalScanFilter;
+        // loopDc.EntryScan = LocalScanFilter;
         loopDc.EntryScanCount = LocalScanFilter.length;
         loopDc.pending = LocalFilterData.length - LocalScanFilter.length
         loopDc.EntryDc = LocalScanFilter.length > 0;
@@ -62,4 +60,5 @@ function TimeSpan(DateTime) {
 
 export { StartFunc };
 
-//StartFunc({ inBranch: "BranOrdersLBC", inFromDate: "04-04-2025", inToDate: "05-04-2025" })
+// let LocalData = StartFunc({ inBranch: "BranOrdersLBC", inFromDate: "04-04-2025", inToDate: "05-04-2025" });console.log("LocalData:",LocalData);
+
