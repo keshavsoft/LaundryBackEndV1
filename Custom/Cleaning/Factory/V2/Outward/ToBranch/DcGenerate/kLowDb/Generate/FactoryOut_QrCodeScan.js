@@ -1,4 +1,5 @@
-import { StartFunc as BulkInsert } from "../../../../../../../../../binV4/FactoryOut_QrCodeScan/Bulk/kLowDb/WriteTofile/BulkInsert/EntryFile.js";
+// import { StartFunc as BulkInsert } from "../../../../../../../../../binV4/FactoryOut_QrCodeScan/Bulk/kLowDb/WriteTofile/BulkInsert/EntryFile.js";
+import { StartFunc as BulkInsert } from "./BulkInsert/EntryFile.js";
 
 let StartFunc = ({ inBulkData }) => {
     let LocalBulk = inBulkData;
