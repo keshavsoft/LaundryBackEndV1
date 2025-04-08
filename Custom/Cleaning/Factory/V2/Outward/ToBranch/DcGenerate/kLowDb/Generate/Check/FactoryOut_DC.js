@@ -5,6 +5,8 @@ const StartFunc = ({ inId }) => {
 
     let LocalReturnData = { KTF: false };
     const dbForQrCodes = FactoryOut_DC();
+    console.log("dbForQrCodes:,",dbForQrCodes,LocalId);
+    
 
     let LocalRowNeeded = dbForQrCodes.find(e => e.RefDC == LocalId);
 
