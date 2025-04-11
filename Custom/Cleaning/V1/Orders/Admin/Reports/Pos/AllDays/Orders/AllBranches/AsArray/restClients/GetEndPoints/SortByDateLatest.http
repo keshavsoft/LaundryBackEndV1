@@ -1,0 +1,1 @@
+GET http://localhost:7318/Custom/Cleaning/V1/Orders/Admin/Reports/Pos/AllDays/Orders/AllBranches/AsArray/SortByDateLatest
