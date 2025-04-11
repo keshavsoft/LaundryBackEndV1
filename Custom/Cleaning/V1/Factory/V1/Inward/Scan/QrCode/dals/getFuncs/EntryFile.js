@@ -93,15 +93,15 @@ let GetAggregateFunc = ({ inFactory }) => {
     // return LocalFromLowDb;
 };
 
-let GetInWashingFunc = ({inFactory}) => {
-	let LocalFromLowDb = StartFuncFromGetInWashing({inFactory});
+let GetInWashingFunc = ({ inFactory, fromDate, toDate }) => {
+    let LocalFromLowDb = StartFuncFromGetInWashing({ inFactory, fromDate, toDate });
 
-	return LocalFromLowDb;
+    return LocalFromLowDb;
 };
 
 export {
     GetFunc, GetPendingFunc, GetScannedFunc, GetRowDataFunc, GetReturnsFunc, GetRowQrDataFunc, GetRowCountFunc,
     GetFromBranchDcWiseItemsFunc, GetToScanPendingFunc, GetDCQrReturnFunc, GetAggregateFunc, GetFilterFunc,
     GetScannedFilterFunc,
-	GetInWashingFunc
+    GetInWashingFunc
 };

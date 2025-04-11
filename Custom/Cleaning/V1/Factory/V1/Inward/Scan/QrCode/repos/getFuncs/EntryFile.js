@@ -65,8 +65,8 @@ let GetFilterFunc = ({ inFactory, fromDate, toDate }) => {
 let GetScannedFilterFunc = ({ inFactory, fromDate, toDate }) => {
     return GetScannedFilterFuncDal({ inFactory, fromDate, toDate });
 };
-let GetInWashingFunc = ({ inFactory }) => {
-    let LocalFromDal = GetInWashingFuncDal({ inFactory });
+let GetInWashingFunc = ({ inFactory, fromDate, toDate }) => {
+    let LocalFromDal = GetInWashingFuncDal({ inFactory, fromDate, toDate });
 
     return LocalFromDal;
 };

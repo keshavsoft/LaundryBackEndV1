@@ -146,7 +146,9 @@ let GetScannedFilterFunc = async (req, res) => {
 let GetInWashingFunc = (req, res) => {
     let LocalParams = req.params;
     let LocalFactory = LocalParams.inFactory;
-    let LocalFromRepo = GetInWashingFuncRepo({ inFactory: LocalFactory });
+    let LocalFromDate = LocalParams.fromDate;
+    let LocalToDate = LocalParams.toDate;
+    let LocalFromRepo = GetInWashingFuncRepo({ inFactory: LocalFactory, fromDate: LocalFromDate, toDate: LocalToDate });
 
     if (LocalFromRepo === false) {
         res.status(500).send(LocalFromRepo);

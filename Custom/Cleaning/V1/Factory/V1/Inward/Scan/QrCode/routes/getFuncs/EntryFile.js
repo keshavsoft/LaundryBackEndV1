@@ -22,6 +22,6 @@ router.get('/DCQrReturn/:id/:inFactory', GetDCQrReturnFunc);
 router.get('/Aggregate/:inFactory', GetAggregateFunc);
 router.get('/Filter/:inFactory/:fromDate/:toDate', GetFilterFunc);
 router.get('/ScannedFilter/:inFactory/:fromDate/:toDate', GetScannedFilterFunc);
-router.get('/InWashing/:inFactory', GetInWashingFunc);
+router.get('/InWashing/:inFactory/:fromDate/:toDate', GetInWashingFunc);
 
 export { router };
