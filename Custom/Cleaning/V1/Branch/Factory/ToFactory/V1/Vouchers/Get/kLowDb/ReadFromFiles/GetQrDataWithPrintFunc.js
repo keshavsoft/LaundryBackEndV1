@@ -1,0 +1,51 @@
+import { StartFunc as BranchDc } from '../../../../../../../../../../../binV4/BranToFactDC/CommonPull/kLowDb/PullData/returnAsArray.js';
+import { StartFunc as BranchScan } from '../../../../../../../../../../../binV4/BranToFactBScan/CommonPull/kLowDb/PullData/returnAsArray.js';
+import { StartFunc as QrCodes } from '../../../../../../../../../../../binV4/QrCodes/CommonPull/kLowDb/PullData/returnAsArray.js';
+import { StartFunc as Users } from '../CommonFuncs/FromApi/Users.js';
+
+let StartFunc = ({ inDC }) => {
+    let LocalDC = parseInt(inDC);
+    let BranchDcdb = BranchDc();
+    let LocalBranchScan = BranchScan();
+    let LocalQrCodes = QrCodes();
+    const UsersData = Users();
+
+    let LocalFilterBranchDc = BranchDcdb.find((e) => e.pk === LocalDC);
+    let LocalFindUsers = UsersData.find(e => e.UserName == LocalFilterBranchDc?.UserName);
+
+    if (LocalFilterBranchDc === undefined) {
+        return "No Data";
+    }
+    let LocalFilterBranchScan = LocalBranchScan.filter(
+        (e) => e.VoucherRef == LocalFilterBranchDc.pk
+    );
+    let LocalMergeData = MergeFunc({
+        inScan: LocalFilterBranchScan,
+        inQr: LocalQrCodes,
+    });
+    return {
+        ...LocalFilterBranchDc,
+        BranchMobile: LocalFindUsers?.BranchMobile,
+        Date: new Date(LocalFilterBranchDc.DateTime).toLocaleDateString("en-GB"),
+        OrderData: Object.values(LocalMergeData)
+    };
+};
+
+let MergeFunc = ({ inScan, inQr }) => {
+    let data = inScan.map((element) => {
+        let LocalFind = inQr.find((ele) => ele.pk == element.QrCodeId);
+        return {
+            ...element,
+            OrderNumber: LocalFind?.OrderNumber,
+            OrderData: new Date(LocalFind?.BookingData.OrderData.Currentdateandtime).toLocaleDateString("en-GB"),
+            DeliveryDate: new Date(LocalFind?.DeliveryDateTime).toLocaleDateString("en-GB")
+        };
+    });
+    return data.reduce((acc, obj) => {
+        acc[obj.OrderNumber] = acc[obj.OrderNumber] || { OrderNumber: obj.OrderNumber, QrCount: 0, OrderDate: obj.OrderData, DeliveryDate: obj.DeliveryDate };
+        acc[obj.OrderNumber].QrCount += 1;
+        return acc;
+    }, {});
+};
+
+export { StartFunc };
