@@ -6,7 +6,7 @@ let StartFunc = ({ inFactory }) => {
 
     const BranchDcdb = BranchDc();
 
-    const EntryScandb = EntryScan();    
+    const EntryScandb = EntryScan();
 
     const today = new Date().toISOString().split("T")[0];
 
@@ -15,7 +15,7 @@ let StartFunc = ({ inFactory }) => {
     );
 
     let LocalFilterEntryScan = EntryScandb.filter(e =>
-        e.FactoryName === LocalFactory && e.Date?.startsWith(today)
+        e.FactoryName === LocalFactory && e.DCDate?.startsWith(today)
     );
 
     let jVarLocalTransformedData = jFLocalMergeFunc({
@@ -59,3 +59,5 @@ function TimeSpan({ DateTime }) {
 };
 
 export { StartFunc };
+// let Result = StartFunc({ inFactory: "Vizag" }); console.log(Result);
+
