@@ -1,27 +1,19 @@
-import { StartFunc as StartFuncCommonFuncs } from '../CommonFuncs/Transactions.js';
-import { StartFunc as StartFuncQrCodes } from '../CommonFuncs/QrCodes.js';
+import { StartFunc as StartFuncCommonFuncs } from './CommonFuncs/CustomeTable.js';
+import { StartFunc as StartFuncQrCodes } from '../../../../../../binV4/QrCodes/CommonPull/kLowDb/PullData/returnAsArray.js';
 
 let StartFunc = ({ inBranch, inFromDate, inToDate }) => {
-    // let LocalFindValue = "02/09/2024";
-    // let LocalFindValue = new Date().toLocaleDateString('en-GB').replace(/\//g, '/');
     let LocalBranchName = inBranch;
     const modifiedBranch = LocalBranchName.replace("BranOrders", "");
 
-    const db = StartFuncCommonFuncs({ inBranchName: LocalBranchName });
-    db.read();
-
+    const CustomeTableData = StartFuncCommonFuncs({ inBranchName: LocalBranchName });
     const Qrdb = StartFuncQrCodes();
-    Qrdb.read();
 
-    let LocalFilterBranchData = db.data.filter(e => {
+    let LocalFilterBranchData = CustomeTableData.filter(e => {
         return new Date(e.OrderData.Currentdateandtime).toLocaleDateString('en-GB');
     });
 
-
     let jVarLocalTransformedData = jFLocalInsertAggValues({ inData: LocalFilterBranchData });
-    // console.log("jFLocalInsertAggValues",jFLocalInsertAggValues);
-
-    let LocalInsertAggValues = jFLocalInsertQrCodeData({ inBranchName: modifiedBranch, inOrderData: jVarLocalTransformedData, inQrCodeData: Qrdb.data });
+    let LocalInsertAggValues = jFLocalInsertQrCodeData({ inBranchName: modifiedBranch, inOrderData: jVarLocalTransformedData, inQrCodeData: Qrdb });
     let LocalArrayReverseData = LocalInsertAggValues.slice().reverse();
 
     return jFLocalBranchWideData({ inData: LocalArrayReverseData, inFromDate, inToDate });
@@ -38,7 +30,6 @@ const jFLocalBranchWideData = ({ inData, inFromDate, inToDate }) =>
 let jFLocalInsertAggValues = ({ inData }) => {
     let jVarLocalReturnObject = [];
     jVarLocalReturnObject = Object.entries(inData).map(element => {
-        // console.log("element",element);
 
         element[1].AggValues = {};
         element[1].IsSettled = false;
@@ -71,8 +62,6 @@ let jFLocalInsertAggValues = ({ inData }) => {
 
 let jFLocalInsertQrCodeData = ({ inBranchName, inOrderData, inQrCodeData }) => {
     let LocalBranchName = inBranchName;
-    // console.log("inOrderData", inOrderData);
-
     let jVarLocalReturnArray = [];
     inOrderData.forEach(element => {
         element.IsQrCodesRaised = false;
@@ -110,4 +99,4 @@ function TimeSpan({ DateTime }) {
 
 
 export { StartFunc };
-// let localdata = StartFunc({ inBranch: "BranOrdersSP", inFromDate: "02-04-2025", inToDate: "02-04-2025" }); console.log("localdata", localdata);
+// let localdata = StartFunc({ inBranch: "BranOrdersKKD", inFromDate: "15-04-2025", inToDate: "15-04-2025" }); console.log("localdata", localdata);
