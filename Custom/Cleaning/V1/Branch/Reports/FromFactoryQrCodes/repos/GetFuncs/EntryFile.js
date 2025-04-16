@@ -1,21 +1,21 @@
 import {
     GetAllFuncs as GetAllFuncsDal,
-    GetInBranchFuncs as GetInBranchFuncsDal,
-    GetToFactoryFuncs as GetToFactoryFuncsDal
+    GetPendingFuncs as GetPendingFuncsDal,
+    GetScannedFuncs as GetScannedFuncsDal
 } from '../../dals/GetFuncs/EntryFile.js';
 
 let GetAllFuncs = ({ inBranch,inFromDate, inToDate }) => {
     return GetAllFuncsDal({ inBranch,inFromDate, inToDate });
 };
 
-let GetInBranchFuncs = ({ inBranch,inFromDate, inToDate }) => {
-    return GetInBranchFuncsDal({ inBranch, inFromDate, inToDate });
+let GetPendingFuncs = ({ inBranch,inFromDate, inToDate }) => {
+    return GetPendingFuncsDal({ inBranch, inFromDate, inToDate });
 };
 
-let GetToFactoryFuncs = ({ inBranch,inFromDate, inToDate}) => {
-    return GetToFactoryFuncsDal({ inBranch,inFromDate, inToDate });
+let GetScannedFuncs = ({ inBranch,inFromDate, inToDate}) => {
+    return GetScannedFuncsDal({ inBranch,inFromDate, inToDate });
 };
 
 export {
-    GetAllFuncs, GetInBranchFuncs, GetToFactoryFuncs
+    GetAllFuncs, GetPendingFuncs, GetScannedFuncs
 };
