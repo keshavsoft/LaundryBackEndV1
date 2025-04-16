@@ -107,6 +107,6 @@ function GetTimeSpan({ DateTime }) {
     }
 }
 
-// export { StartFunc };
-let Result = StartFunc({ inBranch: "BranOrdersLBC", inFromDate: "01-04-2025", inToDate: "16-04-2025" });
-console.log(Result);
+export { StartFunc };
+// let Result = StartFunc({ inBranch: "BranOrdersLBC", inFromDate: "01-04-2025", inToDate: "16-04-2025" });
+// console.log(Result);
