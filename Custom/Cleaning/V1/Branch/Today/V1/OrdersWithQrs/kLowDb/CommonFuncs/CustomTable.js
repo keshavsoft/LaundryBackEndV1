@@ -15,8 +15,9 @@ let StartFunc = ({ inBranchName }) => {
     const defaultData = { error: "From KLowDb" }
 
     const db = new LowSync(new JSONFileSync(LocalReturnData.UserDataFilePath), defaultData);
+    db.read();
 
-    return db;
+    return db.data;
 };
 
 export { StartFunc };

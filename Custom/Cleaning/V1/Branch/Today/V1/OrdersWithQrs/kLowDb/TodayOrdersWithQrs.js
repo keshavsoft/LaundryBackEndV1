@@ -1,28 +1,27 @@
-import { StartFunc as StartFuncCommonFuncs } from '../CommonFuncs/CustomeTable.js';
-import { StartFunc as StartFuncQrCodes } from '../../../../../../../../../binV4/QrCodes/CommonPull/kLowDb/PullData/returnAsArray.js';
+import { StartFunc as StartFuncCommonFuncs } from './CommonFuncs/CustomTable.js';
+import { StartFunc as StartFuncQrCodes } from '../../../../../../../../binV4/QrCodes/CommonPull/kLowDb/PullData/returnAsArray.js';
 
 let StartFunc = ({ inBranch }) => {
     let LocalBranchName = inBranch;
     const modifiedBranch = LocalBranchName.replace("BranOrders", "");
 
-    const db = StartFuncCommonFuncs({ inBranchName: LocalBranchName });
-    db.read();
+    const LocalDataAsArray = StartFuncCommonFuncs({ inBranchName: LocalBranchName });
 
     const Qrdb = StartFuncQrCodes();
 
     let today = new Date().toLocaleDateString('en-GB');
 
-    let LocalFilterBranchData = db.data.filter(e => {
+    let LocalFilterBranchData = LocalDataAsArray.filter(e => {
         return new Date(e.OrderData.Currentdateandtime).toLocaleDateString('en-GB') === today;
     });
 
     let jVarLocalTransformedData = jFLocalInsertAggValues({ inData: LocalFilterBranchData });
-    let LocalInsertAggValues = jFLocalInsertQrCodeData({ 
-        inBranchName: modifiedBranch, 
-        inOrderData: jVarLocalTransformedData, 
-        inQrCodeData: Qrdb 
+    let LocalInsertAggValues = jFLocalInsertQrCodeData({
+        inBranchName: modifiedBranch,
+        inOrderData: jVarLocalTransformedData,
+        inQrCodeData: Qrdb
     });
-    
+
     let LocalArrayReverseData = LocalInsertAggValues.slice().reverse();
     return LocalArrayReverseData;
 };
@@ -43,8 +42,8 @@ let jFLocalInsertAggValues = ({ inData }) => {
 
         element[1].AggValues.SettlementAmount = "";
         if (Object.values(element[1].CheckOutData)[0]) {
-            element[1].AggValues.SettlementAmount = Object.values(element[1].CheckOutData)[0].CardAmount 
-                + Object.values(element[1].CheckOutData)[0].CashAmount 
+            element[1].AggValues.SettlementAmount = Object.values(element[1].CheckOutData)[0].CardAmount
+                + Object.values(element[1].CheckOutData)[0].CashAmount
                 + Object.values(element[1].CheckOutData)[0].UPIAmount;
         };
         if (Object.keys(element[1].CheckOutData).length > 0) {
@@ -69,9 +68,9 @@ let jFLocalInsertQrCodeData = ({ inBranchName, inOrderData, inQrCodeData }) => {
     inOrderData.forEach(element => {
         element.IsQrCodesRaised = false;
         element.TotalItems = 0;
-        
+
         if (Array.isArray(inQrCodeData)) {
-            let FilterCheck = inQrCodeData.filter(ele => 
+            let FilterCheck = inQrCodeData.filter(ele =>
                 ele.OrderNumber == element.pk && ele.BookingData.OrderData.BranchName == LocalBranchName
             );
             if (FilterCheck.length > 0) {
