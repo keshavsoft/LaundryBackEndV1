@@ -1,0 +1,10 @@
+PUT   http://localhost:7318/Custom/Cleaning/V1/Masters/MastersItemService/Alter/1
+Content-Type: application/json
+
+ {
+    "ItemService": "ink Stains",
+    "SerialNo": "1",
+    "UuId": 1,
+    "pk": 1,
+    "DateTime": "2025-04-16T12:19:27.961Z"
+  }
