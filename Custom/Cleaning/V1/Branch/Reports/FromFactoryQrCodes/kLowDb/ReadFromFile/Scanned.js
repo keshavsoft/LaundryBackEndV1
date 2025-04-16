@@ -1,59 +1,76 @@
+import { StartFunc as EntryCancelScan } from '../../../../../../../../binV4/EntryCancelScan/CommonPull/kLowDb/PullData/returnAsArray.js';
+import { StartFunc as PressingCancelScan } from '../../../../../../../../binV4/PressingCancelScan/CommonPull/kLowDb/PullData/returnAsArray.js';
+import { StartFunc as FactoryOut_QrCodeScan } from '../../../../../../../../binV4/FactoryOut_QrCodeScan/CommonPull/kLowDb/PullData/returnAsArray.js';
+import { StartFunc as QrCodes } from '../../../../../../../../binV4/QrCodes/CommonPull/kLowDb/PullData/returnAsArray.js';
+import { StartFunc as EntryCancelDc } from '../../../../../../../../binV4/EntryCancelDc/CommonPull/kLowDb/PullData/returnAsArray.js';
+// import { StartFunc as PressingCancelDC } from '../../../../../../../../binV4/PressingCancelDC/CommonPull/kLowDb/PullData/returnAsArray.js';
+import { StartFunc as FactoryOut_DC } from '../../../../../../../../binV4/FactoryOut_DC/CommonPull/kLowDb/PullData/returnAsArray.js';
+
 import { StartFunc as F_F_Entry_Return_Scan } from '../../../../../../../../binV4/F_F_Entry_Return_Scan/CommonPull/kLowDb/PullData/returnAsArray.js';
 import { StartFunc as F_F_Pressing_Return_Scan } from '../../../../../../../../binV4/F_F_Pressing_Return_Scan/CommonPull/kLowDb/PullData/returnAsArray.js';
 import { StartFunc as F_F_Completion_Scan } from '../../../../../../../../binV4/F_F_Completion_Scan/CommonPull/kLowDb/PullData/returnAsArray.js';
-import { StartFunc as QrCodes } from '../../../../../../../../binV4/QrCodes/CommonPull/kLowDb/PullData/returnAsArray.js';
 
 let StartFunc = ({ inBranch, inFromDate, inToDate }) => {
     const LocalBranch = inBranch;
     const modifiedBranch = LocalBranch.replace("BranOrders", "");
 
     const QrCodesData = QrCodes();
-    const EntryReturnScanData = F_F_Entry_Return_Scan();
-    const PressingReturnScanData = F_F_Pressing_Return_Scan();
-    const CompletionScanData = F_F_Completion_Scan();
+    const EntryReturnScanData = EntryCancelScan();
+    const PressingReturnScanData = PressingCancelScan();
+    const LcalFactoryOut_QrCodeScan = FactoryOut_QrCodeScan();
 
-    const FilteredEntryScan = EntryReturnScanData.filter(e => e.BranchName === modifiedBranch);
-    const FilteredPressingReturnScan = PressingReturnScanData.filter(e => e.BranchName === modifiedBranch);
-    const FilteredCompletionScanData = CompletionScanData.filter(e => e.BranchName === modifiedBranch);
+    const EntryCancelDcData = EntryCancelDc();
+    // const PressingCandelDcData = PressingCancelDC();
+    const CompletionCancelDcData = FactoryOut_DC();
+
+    const LocalF_F_Entry_Return_ScanData = F_F_Entry_Return_Scan();
+    const LocalF_F_Pressing_Return_ScanData = F_F_Pressing_Return_Scan();
+    const LocalF_F_Completion_ScanData = F_F_Completion_Scan();
+
+    const MergedWithCancelStatus = LocalDcMergeFunc({ inQr: EntryReturnScanData, inDc: EntryCancelDcData });
+    // const MergedWithPressingCancel = LocalDcMergeFunc({ inQr: PressingReturnScanData, inDc: PressingCandelDcData });
+    const MergedWithCompletion = LocalDcMergeFunc({ inQr: LcalFactoryOut_QrCodeScan, inDc: CompletionCancelDcData });
+
+    let LocalF_FSendData = [...MergedWithCancelStatus, ...PressingReturnScanData, ...MergedWithCompletion];
+    let LocalF_FReturnData = [...LocalF_F_Entry_Return_ScanData, ...LocalF_F_Pressing_Return_ScanData, ...LocalF_F_Completion_ScanData];
 
     const MergedData = MergeDataFunc({
         inQrData: QrCodesData,
-        inEntryReturn: FilteredEntryScan,
-        inPressingReturn: FilteredPressingReturnScan,
-        inCompletionData: FilteredCompletionScanData
+        inF_FSendData: LocalF_FSendData,
+        inF_FReturnData: LocalF_FReturnData
     });
-    // return MergedData.slice().reverse();
-    return jFLocalBranchWideData({ inData: MergedData, inFromDate, inToDate });
+
+    return jFLocalBranchWideData({ inData: MergedData, inFromDate, inToDate, inBranch: modifiedBranch });
 };
 
-const jFLocalBranchWideData = ({ inData, inFromDate, inToDate }) =>
+const jFLocalBranchWideData = ({ inData, inFromDate, inToDate, inBranch }) =>
     inData
         .filter(e => {
-            const itemDate = e.OrderDateTime.split('/').join('-');
-            return itemDate >= inFromDate && itemDate <= inToDate;
+            const itemDate = e?.DCDate.split("-").reverse().join("-");
+            return itemDate >= inFromDate && itemDate <= inToDate && e.BranchName === inBranch && e.ScanStatus === true;
         })
-        .filter(e =>
-            e.EntryReturnStatus &&
-            e.PressingReturnStatus &&
-            e.ComplletionStatus
-        )
         .reverse();
 
+let MergeDataFunc = ({ inF_FSendData, inQrData, inF_FReturnData }) => {
+    return inF_FSendData.map(loopQr => {
 
-let MergeDataFunc = ({ inQrData, inEntryReturn, inPressingReturn, inCompletionData }) =>
-    inQrData.map(loopQr => ({
-        QrCodeId: loopQr.pk,
-        ItemName: loopQr.ItemName,
-        Rate: loopQr.Rate,
-        OrderNo: loopQr.GenerateReference.ReferncePk,
-        DeliveryDateTime: new Date(loopQr.DeliveryDateTime).toLocaleDateString('en-GB'),
-        location: loopQr.location,
-        OrderDateTime: new Date(loopQr.BookingData.OrderData.Currentdateandtime).toLocaleDateString('en-GB'),
-        EntryReturnStatus: inEntryReturn.some(loopScan => loopScan.QrCodeId == loopQr.pk),
-        PressingReturnStatus: inPressingReturn.some(loopScan => loopScan.QrCodeId == loopQr.pk),
-        ComplletionStatus: inCompletionData.some(loopScan => loopScan.QrCodeId == loopQr.pk),
-        TimeSpan: GetTimeSpan({ DateTime: loopQr.DateTime })
-    }));
+        let matchedQr = inQrData.find(loopScan => loopScan.pk == loopQr.QrCodeId);
+        let LocalReturnScanStatus = inF_FReturnData.some(loopScan => loopScan.QrCodeId == loopQr.QrCodeId);
+        return {
+            QrCode: loopQr.QrCodeId,
+            BranchName: matchedQr.BookingData.OrderData.BranchName,
+            ItemName: matchedQr?.ItemName,
+            Rate: matchedQr?.Rate,
+            OrderNo: matchedQr?.OrderNumber,
+            DCDate: loopQr.DCDate,
+            DeliveryDateTime: new Date(matchedQr?.DeliveryDateTime).toLocaleDateString('en-GB'),
+            location: matchedQr.location,
+            OrderDateTime: new Date(matchedQr.BookingData.OrderData.Currentdateandtime).toLocaleDateString('en-GB'),
+            TimeSpan: GetTimeSpan({ DateTime: loopQr.DCDate }),
+            ScanStatus: LocalReturnScanStatus
+        };
+    });
+};
 
 function GetTimeSpan({ DateTime }) {
     const now = new Date();
@@ -74,8 +91,19 @@ function GetTimeSpan({ DateTime }) {
     } else {
         return `${diffMins} min`;
     }
-}
+};
+const LocalDcMergeFunc = ({ inQr, inDc }) => {
+    return inQr.map(entryItem => {
+        let isCancelled = inDc.find(e => e.pk == entryItem.VoucherRef);
+        return {
+            ...entryItem,
+            FactoryName: isCancelled?.FactoryName,
+            DCDate: `${isCancelled?.Date || ''} ${entryItem?.DCDate || ''}`.trim() // Removes extra spaces if one is undefined
+        };
+    });
+};
+
+
 
 export { StartFunc };
-// let Result = StartFunc({ inBranch: "BranOrdersLBC", inFromDate: "01-04-2025", inToDate: "15-04-2025" });
-// console.log(Result);
+// let Result = StartFunc({ inBranch: "BranOrdersCSO", inFromDate: "14-02-2025", inToDate: "16-04-2025" }); console.log(Result);

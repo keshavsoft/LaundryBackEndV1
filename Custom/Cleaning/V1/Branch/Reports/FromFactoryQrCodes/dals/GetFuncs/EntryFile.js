@@ -6,15 +6,15 @@ let GetAllFuncs = ({ inBranch ,inFromDate, inToDate}) => {
     return QrAllReports({ inBranch,inFromDate, inToDate });
 };
 
-let GetInBranchFuncs = ({ inBranch ,inFromDate, inToDate }) => {
+let GetPendingFuncs = ({ inBranch ,inFromDate, inToDate }) => {
     return Pending({ inBranch, inFromDate, inToDate });
 };
 
-let GetToFactoryFuncs = ({ inBranch, inFromDate, inToDate }) => {
+let GetScannedFuncs = ({ inBranch, inFromDate, inToDate }) => {
     return Scanned({ inBranch, inFromDate, inToDate });
 };
 
 
 export {
-    GetAllFuncs, GetInBranchFuncs, GetToFactoryFuncs
+    GetAllFuncs, GetPendingFuncs, GetScannedFuncs
 };

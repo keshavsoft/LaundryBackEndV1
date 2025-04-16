@@ -1,7 +1,7 @@
 import {
     GetAllFuncs as GetAllFuncsRepo,
-    GetInBranchFuncs as GetInBranchFuncsRepo,
-    GetToFactoryFuncs as GetToFactoryFuncsRepo
+    GetPendingFuncs as GetPendingFuncsRepo,
+    GetScannedFuncs as GetScannedFuncsRepo
 } from '../../repos/GetFuncs/EntryFile.js';
 
 let GetAllFuncs = (req, res) => {
@@ -20,13 +20,13 @@ let GetAllFuncs = (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
-let GetInBranchFuncs = (req, res) => {
+let GetPendingFuncs = (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch;
     let LocalFromDate = LocalParams.inFromDate;
     let LocalToDate = LocalParams.inToDate
 
-    let LocalFromRepo = GetInBranchFuncsRepo({ inBranch: LocalBranch, inFromDate:LocalFromDate, inToDate:LocalToDate  });
+    let LocalFromRepo = GetPendingFuncsRepo({ inBranch: LocalBranch, inFromDate:LocalFromDate, inToDate:LocalToDate  });
 
     if (LocalFromRepo.KTF === false) {
         res.status(500).send(LocalFromRepo.KReason);
@@ -36,13 +36,13 @@ let GetInBranchFuncs = (req, res) => {
     res.status(200).json(LocalFromRepo);
 };
 
-let GetToFactoryFuncs = (req, res) => {
+let GetScannedFuncs = (req, res) => {
     let LocalParams = req.params;
     let LocalBranch = LocalParams.inBranch;
     let LocalFromDate = LocalParams.inFromDate;
     let LocalToDate = LocalParams.inToDate
 
-    let LocalFromRepo = GetToFactoryFuncsRepo({ inBranch: LocalBranch, inFromDate:LocalFromDate, inToDate:LocalToDate  });
+    let LocalFromRepo = GetScannedFuncsRepo({ inBranch: LocalBranch, inFromDate:LocalFromDate, inToDate:LocalToDate  });
 
     if (LocalFromRepo.KTF === false) {
         res.status(500).send(LocalFromRepo.KReason);
@@ -54,5 +54,5 @@ let GetToFactoryFuncs = (req, res) => {
 
 
 export {
-    GetAllFuncs, GetInBranchFuncs, GetToFactoryFuncs
+    GetAllFuncs, GetPendingFuncs, GetScannedFuncs
 };
