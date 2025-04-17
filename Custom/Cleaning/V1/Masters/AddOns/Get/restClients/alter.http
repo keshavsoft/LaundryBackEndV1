@@ -1,4 +1,0 @@
-PUT   http://localhost:7318/Custom/Cleaning/Masters/V1/AddOns/1
-Content-Type: application/json
-
-{"AddOnService":"Sambar marks","AddOnRate":200}
