@@ -1,4 +1,16 @@
-PUT   http://localhost:7318/Custom/Cleaning/V1/Masters/Customers/Alter/12
+PUT  http://localhost:7318/Custom/Cleaning/V1/Masters/Customers/Alter/5
 Content-Type: application/json
 
-{"AddOnService":"Sambar marks","AddOnRate":200}
+{
+    "CustomerName": "MANI",
+    "Mobile": "7993195729",
+    "DOB": "",
+    "GSTNumber": "",
+    "City": "",
+    "Occupation": "",
+    "CompanyName": "",
+    "BranchName": "NGGOS",
+    "UuId": 5,
+    "pk": 5,
+    "DateTime": "2025-01-09T06:11:09.219Z"
+  }

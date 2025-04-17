@@ -1,0 +1,10 @@
+PUT  http://localhost:7318/Custom/Cleaning/V1/Masters/AddOns/Alter/7
+Content-Type: application/json
+
+{
+    "AddOnService": "CLOUR FADE",
+    "AddOnRate": "0",
+    "UuId": 7,
+    "pk": 7,
+    "DateTime": "2025-01-07T12:26:40.627Z"
+}
