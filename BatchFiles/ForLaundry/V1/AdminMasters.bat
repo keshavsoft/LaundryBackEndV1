@@ -2,7 +2,6 @@
 cd ..\LaundryUIAdminMasters
 git pull
 
-call npm run Menu
 call npm run Admin-Masters
 @REM call npm run Admin-Customers
 @REM call npm run Admin-Detailed-Masters
