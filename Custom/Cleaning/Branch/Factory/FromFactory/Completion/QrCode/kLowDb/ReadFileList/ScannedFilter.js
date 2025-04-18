@@ -36,7 +36,8 @@ let StartFunc = ({ inBranch, fromDate, toDate }) => {
 const jFLocalFactoryWideData = ({ inData, inBranch, fromDate, toDate }) => {
     return inData
         .filter(e => {
-            const itemDate = e.dcDate.split('-').reverse().join('-').replace(/\//g, '-');
+            if (!e.CompletionDCDate) return false; 
+            const itemDate = e.CompletionDCDate.split('-').reverse().join('-');
             return itemDate >= fromDate && itemDate <= toDate && e.BranchName === inBranch;
         })
         .reverse();
@@ -58,7 +59,7 @@ let jFLocalMergeFunc = ({ inQrData, inScandata, inEntryScan, inBranchDC, inCompl
 
             VoucherNumber: matchedBranchDC?.pk,
             DCDate: new Date(loopScan?.DateTime).toLocaleDateString('en-GB'),
-            dcDate: matchedCompletionDC?.Date,
+            CompletionDCDate: matchedCompletionDC?.Date,
 
             QrCodeId: loopScan.QrCodeId,
             BranchName: loopScan?.BranchName,
@@ -95,4 +96,4 @@ function TimeSpan({ DateTime }) {
 };
 
 export { StartFunc };
-// StartFunc({ inFactory: "Vizag" })
+// StartFunc({  inBranch:"BranOrdersKKD", fromDate:"18-04-2025", toDate:"18-04-2025"  })
